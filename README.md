@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -195,13 +196,14 @@
     }
 
     /* Новое оформление оглавления (свой лад и вкус) */
-    nav {
+    nav[aria-label="Оглавление"] {
       margin-bottom: 2.5em;
       border-radius: 14px;
       background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
       box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
       max-width: 900px;
       user-select: none;
+      font-family: 'Inter', sans-serif;
     }
 
     .toc-header {
@@ -217,6 +219,7 @@
       background: linear-gradient(90deg, #d8b4fe, #7c3aed);
       box-shadow: inset 0 3px 6px rgba(255 255 255 / 0.25);
       transition: background 0.3s ease;
+      user-select: none;
     }
 
     .toc-header:hover,
@@ -231,13 +234,13 @@
     .toc-icon {
       width: 28px;
       height: 28px;
-      fill: #f3e8ff;
+      stroke: #f3e8ff;
       animation: icon-spin 4s ease-in-out infinite;
       flex-shrink: 0;
       user-select: none;
     }
 
-    nav ul {
+    nav ul.toc-list {
       margin: 0;
       padding: 0;
       list-style: none;
@@ -249,22 +252,22 @@
       transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    nav ul.collapsed {
+    nav ul.toc-list.collapsed {
       max-height: 0;
       padding: 0;
       overflow: hidden;
     }
 
-    nav ul li {
+    nav ul.toc-list li {
       border-bottom: 1.5px dotted #a78bfa;
       transition: background-color 0.25s ease;
     }
 
-    nav ul li:last-child {
+    nav ul.toc-list li:last-child {
       border-bottom: none;
     }
 
-    nav ul li a {
+    nav ul.toc-list li a {
       display: block;
       padding: 14px 28px;
       font-weight: 600;
@@ -283,8 +286,8 @@
       text-align: left;
     }
 
-    nav ul li a:hover,
-    nav ul li a:focus {
+    nav ul.toc-list li a:hover,
+    nav ul.toc-list li a:focus {
       color: #4c1d95;
       background: none;
       text-decoration: underline;
@@ -293,7 +296,7 @@
       user-select: text;
     }
 
-    nav ul li a.active {
+    nav ul.toc-list li a.active {
       background-color: #c4b5fd;
       color: #4c1d95 !important;
       font-weight: 700;
@@ -516,11 +519,11 @@
         font-size: 1.1em;
       }
 
-      nav {
+      nav[aria-label="Оглавление"] {
         margin-bottom: 1.8em;
       }
 
-      nav ul li a {
+      nav ul.toc-list li a {
         padding: 10px 20px;
         font-size: 1em;
       }
@@ -552,12 +555,15 @@
 
     <nav aria-label="Оглавление">
       <div class="toc-header" role="button" tabindex="0" aria-expanded="true" aria-controls="toc-list" id="toc-toggle">
-        <svg class="toc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <svg class="toc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="28" height="28" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
         Содержание
       </div>
-      <ul id="toc-list" tabindex="-1">
+      <ul id="toc-list" tabindex="-1" class="toc-list">
         <li><a href="#ne-zhelatelno">Не желательно</a></li>
         <li><a href="#zapreshchaetsya">Запрещается</a></li>
         <li><a href="#dopolneniya-po-moderatoram">Важные дополнения по работе модераторов и контролю качества их
@@ -591,21 +597,18 @@
         полезным каналом — сначала свяжитесь с администратором (@lia_os).</p>
       <p><strong>Пример:</strong> «Подпишитесь на мой канал!» — запрещено без разрешения.</p>
 
-      <h3>3. Начинать ссоры, старайтесь поддерживать комфорт в чате <button class="copy-btn"
-          title="Скопировать правило">📋</button></h3>
+      <h3>3. Начинать ссоры, старайтесь поддерживать комфорт в чате <button class="copy-btn" title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Предупреждение или мут (в зависимости от интенсивности)</p>
       <p><strong>Пояснение:</strong> Споры бывают, но если они переходят в оскорбления или мешают другим — сначала предупредим,
         а при повторе временно ограничим возможность писать (мут).</p>
       <p><strong>Пример:</strong> «Ты неправ!» — нормально, «Ты идиот!» — повод для наказания.</p>
 
-      <h3>5. Оскорбление персонажей, уважайте чувства и вкусы других <button class="copy-btn"
-          title="Скопировать правило">📋</button></h3>
+      <h3>5. Оскорбление персонажей, уважайте чувства и вкусы других <button class="copy-btn" title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Предупреждение или мут</p>
       <p><strong>Пояснение:</strong> Критика — нормально, а личные оскорбления — нет.</p>
       <p><strong>Пример:</strong> «Мне не нравится этот персонаж» — допустимо, «Этот персонаж — дурак» — нарушение.</p>
 
-      <h3>6. Пересылка личных сообщений другого человека в беседу <button class="copy-btn"
-          title="Скопировать правило">📋</button></h3>
+      <h3>6. Пересылка личных сообщений другого человека в беседу <button class="copy-btn" title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Предупреждение</p>
       <p><strong>Пояснение:</strong> Личные сообщения другого участника нельзя пересылать в общий чат без согласия обеих
         сторон. Если оба участника переписки являются членами группы, часть переписки пересылается только с одобрения обеих
@@ -943,7 +946,7 @@
     // Подсветка активного пункта меню при скролле
     document.addEventListener('DOMContentLoaded', () => {
       const sections = document.querySelectorAll('section[id]');
-      const tocLinks = document.querySelectorAll('nav ul li a');
+      const tocLinks = document.querySelectorAll('nav ul.toc-list li a');
 
       function onScroll() {
         let current = '';
@@ -967,7 +970,7 @@
 
     // Плавный скролл по меню
     document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('nav ul li a').forEach(anchor => {
+      document.querySelectorAll('nav ul.toc-list li a').forEach(anchor => {
         anchor.addEventListener('click', e => {
           e.preventDefault();
           const targetId = anchor.getAttribute('href').substring(1);
