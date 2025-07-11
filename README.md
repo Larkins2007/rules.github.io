@@ -37,20 +37,20 @@
       z-index: 0;
     }
 
-    /* Фоновые волны (анимированные) */
+    /* Фоновые волны (анимированные) - расширенные */
     body::before,
     body::after {
       content: "";
       position: fixed;
       left: 50%;
       transform: translateX(-50%);
-      width: 200vw;
-      height: 320px;
+      width: 250vw; /* Увеличено с 200vw */
+      height: 480px; /* Увеличено с 320px */
       max-width: none;
       pointer-events: none;
       z-index: -1;
       background-repeat: repeat-x;
-      background-size: 1600px 320px;
+      background-size: 2000px 480px; /* Увеличено пропорционально */
       opacity: 0.15;
       animation-timing-function: linear;
       animation-iteration-count: infinite;
@@ -58,20 +58,47 @@
     }
 
     body::before {
-      bottom: 0;
+      bottom: -40px; /* Подвинул вниз, чтобы волна была чуть выше */
       background-image: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-      clip-path: polygon(0 75%, 100% 50%, 100% 100%, 0% 100%);
+      clip-path: polygon(
+        0 70%,
+        10% 60%,
+        20% 70%,
+        30% 60%,
+        40% 70%,
+        50% 60%,
+        60% 70%,
+        70% 60%,
+        80% 70%,
+        90% 60%,
+        100% 70%,
+        100% 100%,
+        0 100%
+      );
       animation-name: wave1;
       animation-duration: 40s;
+      background-size: 2000px 480px;
     }
 
     body::after {
-      bottom: 120px;
+      bottom: 80px; /* Подвинул выше */
       background-image: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
-      clip-path: polygon(0 60%, 100% 80%, 100% 100%, 0% 100%);
+      clip-path: polygon(
+        0 55%,
+        15% 45%,
+        30% 55%,
+        45% 45%,
+        60% 55%,
+        75% 45%,
+        90% 55%,
+        100% 45%,
+        100% 100%,
+        0 100%
+      );
       animation-name: wave2;
       animation-duration: 60s;
       opacity: 0.1;
+      background-size: 2000px 480px;
     }
 
     @keyframes wave1 {
@@ -80,7 +107,7 @@
       }
 
       100% {
-        background-position-x: 1600px;
+        background-position-x: 2000px;
       }
     }
 
@@ -90,7 +117,7 @@
       }
 
       100% {
-        background-position-x: -1600px;
+        background-position-x: -2000px;
       }
     }
 
@@ -596,6 +623,133 @@
         right: 10px;
       }
     }
+
+    /* === Новые стили для частиц === */
+    /* Частицы поверх фона, под основным контентом */
+    #particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1; /* между фоном (-1) и контентом (0+) */
+      overflow: visible;
+    }
+
+    .particle {
+      position: absolute;
+      will-change: transform, opacity;
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.6;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-name: floatUp;
+    }
+
+    /* Лайк (палец вверх) */
+    .like {
+      width: 16px;
+      height: 16px;
+      background: #22c55e;
+      clip-path: polygon(
+        40% 0%,
+        60% 0%,
+        60% 35%,
+        80% 35%,
+        80% 50%,
+        60% 50%,
+        60% 100%,
+        40% 100%,
+        40% 50%,
+        20% 50%,
+        20% 35%,
+        40% 35%
+      );
+      filter: drop-shadow(0 0 3px rgba(34 197 94 / 0.7));
+    }
+
+    /* Дизлайк (палец вниз) */
+    .dislike {
+      width: 16px;
+      height: 16px;
+      background: #ef4444;
+      clip-path: polygon(
+        40% 100%,
+        60% 100%,
+        60% 65%,
+        80% 65%,
+        80% 50%,
+        60% 50%,
+        60% 0%,
+        40% 0%,
+        40% 50%,
+        20% 50%,
+        20% 65%,
+        40% 65%
+      );
+      filter: drop-shadow(0 0 3px rgba(239 68 68 / 0.7));
+    }
+
+    /* Комментарий (облачко) */
+    .comment {
+      width: 18px;
+      height: 14px;
+      background: #3b82f6;
+      border-radius: 12px 12px 12px 0;
+      position: relative;
+      filter: drop-shadow(0 0 3px rgba(59 130 246 / 0.7));
+    }
+
+    .comment::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 6px;
+      width: 6px;
+      height: 6px;
+      background: #3b82f6;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      filter: inherit;
+    }
+
+    /* Сердечко */
+    .heart {
+      width: 16px;
+      height: 16px;
+      background: red;
+      clip-path: polygon(
+        50% 15%,
+        61% 15%,
+        70% 25%,
+        70% 40%,
+        70% 60%,
+        50% 80%,
+        30% 60%,
+        30% 40%,
+        30% 25%,
+        39% 15%
+      );
+      filter: drop-shadow(0 0 3px rgba(255 0 0 / 0.7));
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateX(0) translateY(0);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: translateX(var(--x-move)) translateY(-120vh);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 
@@ -613,8 +767,8 @@
 
     <nav aria-label="Оглавление">
       <div class="toc-header" role="button" tabindex="0" aria-expanded="true" aria-controls="toc-list" id="toc-toggle">
-        <svg class="toc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="28" height="28" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="toc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="28" height="28"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -780,6 +934,9 @@
       <p>Если у вас есть вопросы или нужна помощь — обращайтесь к администрации (<strong>@lia_os</strong>).</p>
     </footer>
   </main>
+
+  <!-- Контейнер для частиц -->
+  <div id="particles-container" aria-hidden="true"></div>
 
   <script>
     // Оглавление: раскрытие/скрытие
@@ -1033,6 +1190,57 @@
           });
         });
       });
+    });
+
+    // === Скрипт для анимированных частиц ===
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('particles-container');
+      const types = ['like', 'dislike', 'comment', 'heart'];
+      const maxParticles = 40;
+
+      function random(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function createParticle(type) {
+        const el = document.createElement('div');
+        el.classList.add('particle', type);
+
+        const startX = random(0, 100);
+        el.style.left = `${startX}vw`;
+        el.style.top = `110vh`;
+
+        const xMovePx = (Math.random() < 0.5 ? -1 : 1) * random(5, 15);
+        el.style.setProperty('--x-move', `${xMovePx}px`);
+
+        const duration = random(10000, 25000);
+        el.style.animationDuration = `${duration}ms`;
+
+        const delay = random(0, duration);
+        el.style.animationDelay = `-${delay}ms`;
+
+        return el;
+      }
+
+      for (let i = 0; i < maxParticles; i++) {
+        const type = types[Math.floor(Math.random() * types.length)];
+        const p = createParticle(type);
+        container.appendChild(p);
+
+        p.addEventListener('animationiteration', () => {
+          const startX = random(0, 100);
+          p.style.left = `${startX}vw`;
+
+          const xMovePx = (Math.random() < 0.5 ? -1 : 1) * random(5, 15);
+          p.style.setProperty('--x-move', `${xMovePx}px`);
+
+          const duration = random(10000, 25000);
+          p.style.animationDuration = `${duration}ms`;
+
+          const delay = random(0, duration);
+          p.style.animationDelay = `-${delay}ms`;
+        });
+      }
     });
   </script>
 </body>
