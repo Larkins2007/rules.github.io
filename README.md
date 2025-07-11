@@ -26,7 +26,7 @@
       color: #222;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       min-height: 100vh;
-      padding-top: 72px;
+      padding-top: 100px; /* увеличен отступ сверху */
       box-sizing: border-box;
       display: flex;
       justify-content: center;
@@ -124,6 +124,8 @@
       animation-duration: 0.8s;
       animation-timing-function: ease;
       animation-delay: 0.3s;
+      text-align: left; /* выравнивание текста по левому краю */
+      margin-top: 20px; /* добавлен отступ сверху */
     }
 
     @keyframes slideUpScale {
@@ -171,6 +173,7 @@
       animation: rainbowGradient 10s ease infinite;
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       user-select: none;
+      text-align: center; /* заголовок по центру */
     }
 
     main>p:first-of-type {
@@ -182,6 +185,9 @@
       max-width: 700px;
       line-height: 1.5;
       user-select: text;
+      text-align: center; /* первый параграф по центру */
+      margin-left: auto;
+      margin-right: auto;
     }
 
     h2 svg,
@@ -275,6 +281,7 @@
       user-select: none;
       border-radius: 0 0 0 0;
       transition: background-color 0.3s ease, color 0.3s ease;
+      text-align: left;
     }
 
     nav ul li a:hover,
@@ -313,7 +320,7 @@
 
     /* Стили разделителей в статье — разноцветные градиентные пунктирные линии */
     /* Между разделами */
-    section + section {
+    section+section {
       border-top: 3px dashed;
       border-image-slice: 1;
       border-image-source: linear-gradient(to right,
@@ -336,6 +343,7 @@
         #2575fc);
       padding-top: 24px;
       margin-top: 48px;
+      text-align: center;
     }
 
     /* Между заголовками h3 */
@@ -348,6 +356,7 @@
       padding-top: 12px;
       margin-top: 28px;
       user-select: none;
+      text-align: left;
     }
 
     /* Между пунктами списков */
@@ -395,6 +404,7 @@
       transform: translateY(20px);
       transition: opacity 0.6s ease, transform 0.6s ease;
       user-select: text;
+      text-align: left;
     }
 
     p.visible,
@@ -440,24 +450,14 @@
       font-weight: 700;
       border-radius: 3px;
       padding: 0 2px;
-      box-shadow: 0 0 6px #7c3aed88;
-      animation: pulseHighlight 2s infinite;
-      transition: box-shadow 0.3s ease;
+      box-shadow: none;
+      animation: none;
+      transition: background-color 0.3s ease;
     }
 
     mark:hover {
-      box-shadow: 0 0 12px #7c3aedcc;
-    }
-
-    @keyframes pulseHighlight {
-      0%,
-      100% {
-        background-color: #a5b4fc;
-      }
-
-      50% {
-        background-color: #c7d2fe;
-      }
+      background-color: #c7d2fe;
+      box-shadow: none;
     }
 
     #no-results {
@@ -475,91 +475,24 @@
       display: none !important;
     }
 
-    /* Темная тема */
-    #theme-toggle {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      font-size: 1.6em;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: #4f46e5;
+    /* Подпись "by Везунчик" */
+    #signature {
+      margin-top: 60px;
+      text-align: center;
       user-select: none;
-      z-index: 10001;
-      transition: color 0.3s ease;
-      outline-offset: 4px;
     }
 
-    #theme-toggle:hover,
-    #theme-toggle:focus {
-      color: #7c3aed;
-      outline: none;
-    }
-
-    body.dark {
-      background: #1e293b;
-      color: #cbd5e1;
-    }
-
-    body.dark main {
-      background: rgba(30, 41, 59, 0.85);
-      color: #e0e7ff;
-      box-shadow: 0 8px 30px rgba(165, 180, 252, 0.3);
-    }
-
-    body.dark p,
-    body.dark ul,
-    body.dark li {
-      color: #cbd5e1;
-    }
-
-    body.dark mark {
-      background-color: #4338ca;
-      color: #e0e7ff;
-      box-shadow: 0 0 8px #a5b4fccc;
-    }
-
-    body.dark #search-container {
-      background: rgba(49, 46, 129, 0.9);
-      box-shadow: 0 2px 8px rgba(165, 180, 252, 0.4);
-    }
-
-    body.dark #search-input {
-      background: #312e81;
-      color: #e0e7ff;
-      border-color: #818cf8;
-      box-shadow: 0 2px 8px rgba(165, 180, 252, 0.3);
-    }
-
-    body.dark #search-input::placeholder {
-      color: #a5b4fc;
-    }
-
-    body.dark #clear-button {
-      color: #a5b4fc;
-    }
-
-    body.dark nav ul li:hover,
-    body.dark nav ul li:focus-within {
-      background: rgba(165, 180, 252, 0.15);
-      border-radius: 8px;
-    }
-
-    body.dark nav ul li a {
-      background: linear-gradient(270deg, #818cf8, #a5b4fc);
+    #signature p {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 700;
+      font-size: 1.4em;
+      background: linear-gradient(270deg, #ff6b6b, #fbc531, #4cd137, #00a8ff, #9c88ff);
       background-size: 600% 600%;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      animation: rainbowGradient 15s ease infinite;
-    }
-
-    body.dark nav ul li a:hover,
-    body.dark nav ul li a:focus {
-      color: #c7d2fe;
-      background: none;
-      text-decoration: underline;
+      animation: rainbowGradient 10s ease infinite;
+      margin: 0;
     }
 
     @media (max-width: 700px) {
@@ -612,8 +545,6 @@
       autocomplete="off" spellcheck="false" />
     <button id="clear-button" aria-label="Очистить поиск" title="Очистить поиск">&times;</button>
   </div>
-
-  <button id="theme-toggle" aria-label="Переключить тему">🌓</button>
 
   <main id="main-content" tabindex="-1">
     <h1>Правила чата</h1>
@@ -780,6 +711,11 @@
     </section>
 
     <div id="no-results" role="alert" aria-live="polite">Ничего не найдено.</div>
+
+    <!-- Подпись автора -->
+    <section id="signature" aria-label="Подпись автора">
+      <p>by Везунчик</p>
+    </section>
 
     <footer>
       <p>Если у вас есть вопросы или нужна помощь — обращайтесь к администрации (<strong>@lia_os</strong>).</p>
@@ -1044,29 +980,6 @@
           });
         });
       });
-    });
-
-    // Переключение темной/светлой темы
-    document.addEventListener('DOMContentLoaded', () => {
-      const themeToggle = document.getElementById('theme-toggle');
-
-      function setTheme(dark) {
-        if (dark) {
-          document.body.classList.add('dark');
-          localStorage.setItem('darkTheme', 'true');
-        } else {
-          document.body.classList.remove('dark');
-          localStorage.setItem('darkTheme', 'false');
-        }
-      }
-
-      themeToggle.addEventListener('click', () => {
-        setTheme(!document.body.classList.contains('dark'));
-      });
-
-      if (localStorage.getItem('darkTheme') === 'true') {
-        setTheme(true);
-      }
     });
   </script>
 </body>
