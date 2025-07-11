@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -23,20 +24,78 @@
       margin: 0;
       line-height: 1.6;
       color: #222;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       min-height: 100vh;
-      padding-top: 100px; /* увеличен отступ сверху */
+      padding-top: 100px;
       box-sizing: border-box;
       display: flex;
       justify-content: center;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
-      background-attachment: fixed;
-      background-position: center center;
-      transition: background-position 0.3s ease;
+      background-color: #1e1e2f;
+      position: relative;
+      /* Чтобы волны были позади */
+      z-index: 0;
     }
 
+    /* Фоновые волны (анимированные) */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200vw;
+      height: 320px;
+      max-width: none;
+      pointer-events: none;
+      z-index: -1;
+      background-repeat: repeat-x;
+      background-size: 1600px 320px;
+      opacity: 0.15;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      will-change: background-position;
+    }
+
+    body::before {
+      bottom: 0;
+      background-image: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      clip-path: polygon(0 75%, 100% 50%, 100% 100%, 0% 100%);
+      animation-name: wave1;
+      animation-duration: 40s;
+    }
+
+    body::after {
+      bottom: 120px;
+      background-image: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+      clip-path: polygon(0 60%, 100% 80%, 100% 100%, 0% 100%);
+      animation-name: wave2;
+      animation-duration: 60s;
+      opacity: 0.1;
+    }
+
+    @keyframes wave1 {
+      0% {
+        background-position-x: 0;
+      }
+
+      100% {
+        background-position-x: 1600px;
+      }
+    }
+
+    @keyframes wave2 {
+      0% {
+        background-position-x: 0;
+      }
+
+      100% {
+        background-position-x: -1600px;
+      }
+    }
+
+    /* Стили контейнера */
     #search-container {
       position: fixed;
       top: 0;
@@ -123,8 +182,10 @@
       animation-duration: 0.8s;
       animation-timing-function: ease;
       animation-delay: 0.3s;
-      text-align: left; /* выравнивание текста по левому краю */
-      margin-top: 20px; /* добавлен отступ сверху */
+      text-align: left;
+      margin-top: 20px;
+      position: relative;
+      z-index: 10;
     }
 
     @keyframes slideUpScale {
@@ -172,7 +233,7 @@
       animation: rainbowGradient 10s ease infinite;
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       user-select: none;
-      text-align: center; /* заголовок по центру */
+      text-align: center;
     }
 
     main>p:first-of-type {
@@ -184,7 +245,7 @@
       max-width: 700px;
       line-height: 1.5;
       user-select: text;
-      text-align: center; /* первый параграф по центру */
+      text-align: center;
       margin-left: auto;
       margin-right: auto;
     }
@@ -194,7 +255,6 @@
       display: none !important;
     }
 
-    /* Новое оформление оглавления (свой лад и вкус) */
     nav[aria-label="Оглавление"] {
       margin-bottom: 2.5em;
       border-radius: 14px;
@@ -203,6 +263,8 @@
       max-width: 900px;
       user-select: none;
       font-family: 'Inter', sans-serif;
+      position: relative;
+      z-index: 10;
     }
 
     .toc-header {
@@ -249,6 +311,8 @@
       border-radius: 0 0 14px 14px;
       box-shadow: inset 0 0 12px #a78bfa88;
       transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 10;
     }
 
     nav ul.toc-list.collapsed {
@@ -304,7 +368,6 @@
       user-select: text;
     }
 
-    /* Плавная анимация иконки оглавления */
     @keyframes icon-spin {
       0% {
         transform: rotate(0deg);
@@ -319,8 +382,6 @@
       }
     }
 
-    /* Стили разделителей в статье — разноцветные градиентные пунктирные линии */
-    /* Между разделами */
     section+section {
       border-top: 3px dashed;
       border-image-slice: 1;
@@ -334,7 +395,6 @@
       padding-top: 32px;
     }
 
-    /* Между заголовками h2 (кроме первого) */
     h2:not(:first-of-type) {
       border-top: 3px dashed;
       border-image-slice: 1;
@@ -347,7 +407,6 @@
       text-align: center;
     }
 
-    /* Между заголовками h3 */
     h3:not(:first-of-type) {
       border-top: 2px dotted;
       border-image-slice: 1;
@@ -360,7 +419,6 @@
       text-align: left;
     }
 
-    /* Между пунктами списков */
     ul li:not(:last-child) {
       border-bottom: 1.5px dotted;
       border-image-slice: 1;
@@ -371,7 +429,6 @@
       margin-bottom: 6px;
     }
 
-    /* Заголовки разделов и подзаголовки */
     h2,
     h3 {
       font-weight: 700;
@@ -394,7 +451,6 @@
       background-image: linear-gradient(270deg, #5b21b6, #c4b5fd);
     }
 
-    /* Параграфы и списки с появлением */
     p,
     ul {
       font-family: 'Inter', sans-serif;
@@ -443,6 +499,8 @@
       text-align: center;
       user-select: none;
       letter-spacing: 0.02em;
+      position: relative;
+      z-index: 10;
     }
 
     mark {
@@ -469,18 +527,20 @@
       margin-top: 20px;
       display: none;
       user-select: none;
+      position: relative;
+      z-index: 10;
     }
 
-    /* Убираем кнопку "Наверх" полностью */
     #back-to-top {
       display: none !important;
     }
 
-    /* Подпись "by Везунчик" */
     #signature {
       margin-top: 60px;
       text-align: center;
       user-select: none;
+      position: relative;
+      z-index: 10;
     }
 
     #signature p {
@@ -713,7 +773,6 @@
 
     <div id="no-results" role="alert" aria-live="polite">Ничего не найдено.</div>
 
-    <!-- Подпись автора -->
     <section id="signature" aria-label="Подпись автора">
       <p>by Везунчик</p>
     </section>
@@ -934,12 +993,6 @@
           });
         });
       });
-    });
-
-    // Плавный параллакс фон при прокрутке
-    window.addEventListener('scroll', () => {
-      const scroll = window.pageYOffset || document.documentElement.scrollTop;
-      document.body.style.backgroundPosition = `center ${-scroll * 0.3}px`;
     });
 
     // Подсветка активного пункта меню при скролле
