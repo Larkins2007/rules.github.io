@@ -1,31 +1,103 @@
+<!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Правила чата</title>
-
-  <!-- Подключение шрифтов Google Fonts -->
+  <meta name="description" content="Правила чата: соблюдение, модерация, наказания, политика." />
+  <meta name="keywords" content="чат, правила, модерация, наказания, политика" />
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet" />
-
   <style>
-    /* Общие стили и фон, объединяющие оба дизайна */
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      margin: 20px;
+      margin: 0;
       line-height: 1.6;
       color: #222;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       min-height: 100vh;
-      padding: 20px;
+      padding-top: 72px;
       box-sizing: border-box;
       display: flex;
       justify-content: center;
-      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
+
+    #search-container {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255 255 255 / 0.95);
+      backdrop-filter: blur(12px);
+      max-width: 900px;
+      width: 100%;
+      padding: 12px 20px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      user-select: none;
+    }
+
+    #search-input {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px 40px 10px 14px;
+      font-size: 1.1em;
+      border: 2px solid #4f46e5;
+      border-radius: 12px;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      color: #2c2f48;
+      background: #fefefe;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
+      position: relative;
+    }
+
+    #search-input::placeholder {
+      color: #a5b4fc;
+    }
+
+    #search-input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 8px #6366f1;
+      background: #fff;
+    }
+
+    #clear-button {
+      position: absolute;
+      right: 30px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5em;
+      color: #4f46e5;
+      padding: 0;
+      line-height: 1;
+      user-select: none;
+      display: none;
+      transition: color 0.3s ease;
+      z-index: 10;
+    }
+
+    #clear-button:hover,
+    #clear-button:focus {
+      color: #6366f1;
+      outline: none;
+    }
+
     main {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
@@ -37,6 +109,8 @@
       box-sizing: border-box;
       color: #374151;
       animation: slideUpScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      user-select: text;
+      outline-offset: 4px;
     }
 
     @keyframes slideUpScale {
@@ -44,13 +118,13 @@
         opacity: 0;
         transform: translateY(15px) scale(0.95);
       }
+
       to {
         opacity: 1;
         transform: translateY(0) scale(1);
       }
     }
 
-    /* Заголовок h1 с декоративным шрифтом */
     h1 {
       font-family: 'Roboto Slab', serif;
       font-size: 2.4em;
@@ -60,17 +134,19 @@
       gap: 12px;
       color: #111827;
       letter-spacing: -0.02em;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      user-select: none;
     }
+
     h1 svg {
       width: 42px;
       height: 42px;
       fill: #4f46e5;
       flex-shrink: 0;
       filter: drop-shadow(0 1px 2px rgba(79, 70, 229, 0.5));
+      user-select: none;
     }
 
-    /* Заголовки h2 — заголовочные, жирные и крупные */
     h2 {
       font-family: 'Roboto Slab', serif;
       margin-top: 48px;
@@ -84,8 +160,17 @@
       font-weight: 700;
       font-size: 1.5em;
       user-select: none;
-      text-shadow: 0 0 1px rgba(79,70,229,0.3);
+      text-shadow: 0 0 1px rgba(79, 70, 229, 0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
+
+    h2.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     h2 svg {
       width: 28px;
       height: 28px;
@@ -93,13 +178,14 @@
       flex-shrink: 0;
       transition: transform 0.3s ease, fill 0.3s ease;
       cursor: default;
+      user-select: none;
     }
+
     h2:hover svg {
       transform: rotate(15deg);
       fill: #3730a3;
     }
 
-    /* Заголовки h3 — подзаголовки, полужирные */
     h3 {
       font-family: 'Inter', sans-serif;
       margin-top: 28px;
@@ -110,7 +196,17 @@
       gap: 8px;
       font-weight: 600;
       font-size: 1.15em;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      user-select: none;
     }
+
+    h3.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     h3 svg {
       width: 20px;
       height: 20px;
@@ -118,21 +214,29 @@
       flex-shrink: 0;
       transition: fill 0.3s ease;
       cursor: default;
+      user-select: none;
     }
+
     h3:hover svg {
       fill: #3730a3;
     }
 
-    /* Основной текст */
     p {
       font-family: 'Inter', sans-serif;
       margin-bottom: 1.2em;
       font-size: 1.05em;
       color: #4b5563;
       letter-spacing: 0.02em;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    /* Списки */
+    p.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     ul {
       font-family: 'Inter', sans-serif;
       padding-left: 1.4em;
@@ -140,12 +244,20 @@
       color: #4b5563;
       font-size: 1.05em;
       letter-spacing: 0.02em;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
+
+    ul.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     ul li {
       margin-bottom: 0.8em;
     }
 
-    /* Навигация */
     nav {
       background: #eef2ff;
       padding: 20px 24px;
@@ -156,6 +268,7 @@
       user-select: none;
       max-width: 100%;
     }
+
     nav .toc-header {
       display: flex;
       align-items: center;
@@ -176,6 +289,7 @@
         box-shadow 0.3s ease;
       user-select: none;
     }
+
     nav .toc-header:hover,
     nav .toc-header:focus {
       background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
@@ -185,6 +299,7 @@
         inset 0 1px 0 rgba(255 255 255 / 0.9),
         0 6px 15px rgba(55, 48, 163, 0.5);
     }
+
     nav .toc-header svg {
       width: 28px;
       height: 28px;
@@ -194,17 +309,20 @@
       user-select: none;
       pointer-events: none;
     }
+
     nav .toc-header[aria-expanded="true"] svg {
       transform: rotate(90deg);
     }
+
     nav ul {
       padding-left: 0;
       list-style: none;
       margin-top: 12px;
-      max-height: 500px; /* max height for smooth animation */
+      max-height: 500px;
       overflow: hidden;
       transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     nav ul.collapsed {
       max-height: 0;
       margin-top: 0;
@@ -213,6 +331,7 @@
       overflow: hidden;
       transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     nav ul li {
       margin-bottom: 12px;
       display: flex;
@@ -222,12 +341,14 @@
       border-left: 3px solid transparent;
       transition: border-color 0.3s ease;
     }
+
     nav ul li:hover,
     nav ul li:focus-within {
       border-left-color: #4f46e5;
       background: rgba(79, 70, 229, 0.1);
       border-radius: 6px;
     }
+
     nav ul li svg {
       width: 16px;
       height: 16px;
@@ -235,6 +356,7 @@
       flex-shrink: 0;
       transition: fill 0.3s ease;
     }
+
     nav ul li a {
       text-decoration: none;
       color: #4f46e5;
@@ -244,6 +366,7 @@
       flex-grow: 1;
       font-family: 'Inter', sans-serif;
     }
+
     nav ul li a:hover,
     nav ul li a:focus {
       color: #3730a3;
@@ -251,19 +374,18 @@
       text-decoration: underline;
     }
 
-    /* Акценты */
     strong {
       font-family: 'Inter', sans-serif;
       color: #1e293b;
       font-weight: 700;
     }
+
     em {
       font-family: 'Inter', sans-serif;
       color: #6b7280;
       font-style: italic;
     }
 
-    /* Футер */
     footer {
       font-family: 'Inter', sans-serif;
       margin-top: 40px;
@@ -274,36 +396,108 @@
       letter-spacing: 0.02em;
     }
 
-    /* Адаптив */
+    mark {
+      background-color: #a5b4fc;
+      color: #1e293b;
+      font-weight: 700;
+      border-radius: 3px;
+      padding: 0 2px;
+    }
+
+    #no-results {
+      font-family: 'Inter', sans-serif;
+      text-align: center;
+      color: #9ca3af;
+      font-size: 1.1em;
+      margin-top: 20px;
+      display: none;
+      user-select: none;
+    }
+
+    #back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+      font-size: 24px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    #back-to-top:hover,
+    #back-to-top:focus {
+      background-color: #6366f1;
+      outline: none;
+    }
+
     @media (max-width: 700px) {
       body {
         margin: 10px;
-        padding: 10px;
+        padding: 0;
       }
+
       main {
         padding: 20px 24px;
       }
+
       h1 {
         font-size: 1.9em;
       }
+
       h2 {
         font-size: 1.3em;
       }
+
       h3 {
         font-size: 1.1em;
       }
+
       nav {
         padding: 15px 18px;
+      }
+
+      #search-input {
+        max-width: 100%;
+        font-size: 1em;
+        padding-right: 36px;
+      }
+
+      #clear-button {
+        right: 10px;
+      }
+
+      #back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
       }
     }
   </style>
 </head>
+
 <body>
-  <main>
+  <div id="search-container">
+    <input type="search" id="search-input" aria-label="Поиск по правилам" placeholder="Поиск по правилам..." autocomplete="off" spellcheck="false" />
+    <button id="clear-button" aria-label="Очистить поиск" title="Очистить поиск">&times;</button>
+  </div>
+
+  <main id="main-content" tabindex="-1">
     <h1>
-      <!-- Иконка правил (щит с галочкой) -->
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Правила">
-        <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zM10 16l-4-4 1.41-1.41L10 13.17l6.59-6.59L18 8l-8 8z"/>
+        <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zM10 16l-4-4 1.41-1.41L10 13.17l6.59-6.59L18 8l-8 8z" />
       </svg>
       Правила чата
     </h1>
@@ -313,40 +507,38 @@
     <nav aria-label="Оглавление">
       <div class="toc-header" role="button" tabindex="0" aria-expanded="true" aria-controls="toc-list" id="toc-toggle">
         Содержание
-        <!-- Иконка списка -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Список">
-          <path d="M4 10h16v2H4zm0-4h16v2H4zm0 8h10v2H4z"/>
+          <path d="M4 10h16v2H4zm0-4h16v2H4zm0 8h10v2H4z" />
         </svg>
       </div>
       <ul id="toc-list" tabindex="-1">
         <li>
-          <!-- Иконка стрелки вправо -->
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Пункт">
-            <path d="M10 17l5-5-5-5v10z"/>
+            <path d="M10 17l5-5-5-5v10z" />
           </svg>
           <a href="#ne-zhelatelno">Не желательно</a>
         </li>
         <li>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Пункт">
-            <path d="M10 17l5-5-5-5v10z"/>
+            <path d="M10 17l5-5-5-5v10z" />
           </svg>
           <a href="#zapreshchaetsya">Запрещается</a>
         </li>
         <li>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Пункт">
-            <path d="M10 17l5-5-5-5v10z"/>
+            <path d="M10 17l5-5-5-5v10z" />
           </svg>
           <a href="#dopolneniya-po-moderatoram">Важные дополнения по работе модераторов и контролю качества их действий</a>
         </li>
         <li>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Пункт">
-            <path d="M10 17l5-5-5-5v10z"/>
+            <path d="M10 17l5-5-5-5v10z" />
           </svg>
           <a href="#nakazaniya">Наказания</a>
         </li>
         <li>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Пункт">
-            <path d="M10 17l5-5-5-5v10z"/>
+            <path d="M10 17l5-5-5-5v10z" />
           </svg>
           <a href="#politika">Политика модераторов</a>
         </li>
@@ -356,9 +548,8 @@
     <section id="samoe-vazhnoe">
       <h2>
         Самое важное
-        <!-- Иконка звезды -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Звезда">
-          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
         </svg>
       </h2>
       <p><strong>Каждый участник чата обязан уважать других, соблюдать правила и поддерживать дружелюбную атмосферу.</strong></p>
@@ -368,16 +559,15 @@
     <section id="ne-zhelatelno">
       <h2>
         Не желательно
-        <!-- Иконка предупреждения -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Предупреждение">
-          <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+          <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
         </svg>
       </h2>
+
       <h3>
         1. Использование большого количества ненормативной лексики
-        <!-- Иконка "звук" -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Звук">
-          <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+          <path d="M3 9v6h4l5 5V4L7 9H3z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Предупреждение</p>
@@ -386,9 +576,8 @@
 
       <h3>
         2. Рекламировать другие группы/каналы
-        <!-- Иконка "реклама" -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Реклама">
-          <path d="M3 10h2v4H3v-4zm16-2h2v8h-2v-8zm-6 0h2v8h-2v-8zM5 7h14v2H5V7z"/>
+          <path d="M3 10h2v4H3v-4zm16-2h2v8h-2v-8zm-6 0h2v8h-2v-8zM5 7h14v2H5V7z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Предупреждение</p>
@@ -397,9 +586,8 @@
 
       <h3>
         3. Начинать ссоры, старайтесь поддерживать комфорт в чате
-        <!-- Иконка "конфликт" -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Конфликт">
-          <path d="M7 14l5-5 5 5H7z"/>
+          <path d="M7 14l5-5 5 5H7z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Предупреждение или мут (в зависимости от интенсивности)</p>
@@ -408,9 +596,8 @@
 
       <h3>
         4. Flash — видео/голосовые (редкие громкие звуки, резко мерцающие видео)
-        <!-- Иконка "звук мут" -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Звук мут">
-          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03zM19 12c0 2.89-2.39 5.24-5.5 5.24S8 14.89 8 12s2.39-5.24 5.5-5.24S19 9.11 19 12z"/>
+          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03zM19 12c0 2.89-2.39 5.24-5.5 5.24S8 14.89 8 12s2.39-5.24 5.5-5.24S19 9.11 19 12z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Мут</p>
@@ -418,9 +605,8 @@
 
       <h3>
         5. Оскорбление персонажей, уважайте чувства и вкусы других
-        <!-- Иконка "сердце" -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Сердце">
-          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Предупреждение или мут</p>
@@ -429,9 +615,8 @@
 
       <h3>
         6. Пересылка личных сообщений другого человека в беседу
-        <!-- Иконка "конфиденциальность" -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Конфиденциальность">
-          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Предупреждение</p>
@@ -442,16 +627,15 @@
     <section id="zapreshchaetsya">
       <h2>
         Запрещается
-        <!-- Иконка запрета -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Запрет">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 13.59L13.59 17 12 15.41 10.41 17 7 13.59 8.59 12 7 10.41 10.41 7 12 8.59 13.59 7 17 10.41 15.41 12 17 13.59z"/>
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 13.59L13.59 17 12 15.41 10.41 17 7 13.59 8.59 12 7 10.41 10.41 7 12 8.59 13.59 7 17 10.41 15.41 12 17 13.59z" />
         </svg>
       </h2>
 
       <h3>
         1. Обсуждение политики и публикация любого контента, связанного с политикой
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Политика">
-          <path d="M7 10h2v4H7zM15 10h2v4h-2z"/>
+          <path d="M7 10h2v4H7zM15 10h2v4h-2z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Бан</p>
@@ -461,7 +645,7 @@
       <h3>
         2. Оскорбления
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Оскорбления">
-          <path d="M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm1 11h-2v-2h2v2zm0-4h-2V7h2v4z"/>
+          <path d="M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm1 11h-2v-2h2v2zm0-4h-2V7h2v4z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Предупреждение, при повторе — мут или бан</p>
@@ -471,7 +655,7 @@
       <h3>
         3. Публикация порнографического и околопорнографического контента
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Порнография">
-          <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 14h2v2h-2v-2zm0-8h2v6h-2V8z"/>
+          <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 14h2v2h-2v-2zm0-8h2v6h-2V8z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Бан</p>
@@ -481,7 +665,7 @@
       <h3>
         4. Публикация треш-контента (стикеры/видео/гиф с расчлененкой и тому подобное)
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Треш-контент">
-          <path d="M4 4h16v16H4zM9 9h6v6H9z"/>
+          <path d="M4 4h16v16H4zM9 9h6v6H9z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Бан</p>
@@ -491,7 +675,7 @@
       <h3>
         5. Поднятие тем, нарушающих законы РФ (экстремизм, терроризм, пропаганда наркотиков, оскорбление чувств верующих и др.)
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Закон">
-          <path d="M12 4a8 8 0 0 1 8 8c0 4.42-3.58 8-8 8s-8-3.58-8-8a8 8 0 0 1 8-8zm0 14a6 6 0 0 0 6-6 6 6 0 0 0-6-6 6 6 0 0 0-6 6 6 6 0 0 0 6 6z"/>
+          <path d="M12 4a8 8 0 0 1 8 8c0 4.42-3.58 8-8 8s-8-3.58-8-8a8 8 0 0 1 8-8zm0 14a6 6 0 0 0 6-6 6 6 0 0 0-6-6 6 6 0 0 0-6 6 6 6 0 0 0 6 6z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Бан</p>
@@ -501,7 +685,7 @@
       <h3>
         6. Спам / флуд (часто повторяющиеся сообщения, сообщения без смысла)
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Спам">
-          <path d="M3 12h18M3 6h18M3 18h18"/>
+          <path d="M3 12h18M3 6h18M3 18h18" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Мут</p>
@@ -511,7 +695,7 @@
       <h3>
         7. Публичное осуждение действий администрации / провокация администрации типа «ну давай бань меня»
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Администрация">
-          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Предупреждение или мут</p>
@@ -520,7 +704,7 @@
       <h3>
         8. Любая дискриминация по расовому/национальному/половому/религиозному признаку
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Дискриминация">
-          <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 3.58 8 8 8 1.85 0 3.55-.63 4.9-1.69l4.39 1.16-1.16-4.39A7.96 7.96 0 0 0 20 12c0-5.52-4.48-10-10-10z"/>
+          <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 3.58 8 8 8 1.85 0 3.55-.63 4.9-1.69l4.39 1.16-1.16-4.39A7.96 7.96 0 0 0 20 12c0-5.52-4.48-10-10-10z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Бан</p>
@@ -530,7 +714,7 @@
       <h3>
         9. Просьбы перейти по ссылкам/зарегистрироваться на вредоносном сайте
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Ссылки">
-          <path d="M10 17l5-5-5-5v10z"/>
+          <path d="M10 17l5-5-5-5v10z" />
         </svg>
       </h3>
       <p><strong>Наказание:</strong> Бан</p>
@@ -541,15 +725,15 @@
     <section id="dopolneniya-po-moderatoram">
       <h2>
         Важные дополнения по работе модераторов и контролю качества их действий
-        <!-- Иконка щита -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Щит">
-          <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3z"/>
+          <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3z" />
         </svg>
       </h2>
+
       <h3>
         10. Модераторы обязаны действовать в соответствии с правилами чата и не использовать свои полномочия в личных интересах
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Пользователь">
-          <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zM6 20v-2c0-2.21 3.58-4 6-4s6 1.79 6 4v2H6z"/>
+          <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zM6 20v-2c0-2.21 3.58-4 6-4s6 1.79 6 4v2H6z" />
         </svg>
       </h3>
       <p><strong>Пояснение:</strong> Если заметили нарушение или злоупотребление полномочиями (например, необоснованно мутит или банит, игнорирует правила), обратитесь к высшим администраторам или создателю чата (@lia_os). Жалобы рассматриваются, и мы защищаем от несправедливого обращения.</p>
@@ -557,7 +741,7 @@
       <h3>
         11. Перед применением наказания модератор должен дать словесное предупреждение участнику
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Внимание">
-          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
         </svg>
       </h3>
       <p><strong>Пояснение:</strong> Если поведение начинает нарушать правила или мешать комфорту, модератор предупреждает: «Пожалуйста, прекратите, иначе последуют меры». Если предупреждение игнорируется — применяется наказание (мут, бан и т.п.). Это помогает избежать конфликтов и даёт шанс исправиться.</p>
@@ -566,9 +750,8 @@
     <section id="nakazaniya">
       <h2>
         Наказания
-        <!-- Иконка молотка -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Наказания">
-          <path d="M14.7 9.3l-4.4 4.4-1.4-1.4 4.4-4.4 1.4 1.4zM3 17h18v2H3v-2z"/>
+          <path d="M14.7 9.3l-4.4 4.4-1.4-1.4 4.4-4.4 1.4 1.4zM3 17h18v2H3v-2z" />
         </svg>
       </h2>
       <ul>
@@ -581,9 +764,8 @@
     <section id="politika">
       <h2>
         Политика модераторов
-        <!-- Иконка политика -->
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" role="img" aria-label="Политика">
-          <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm-6 8v-2c0-2.21 3.58-4 6-4s6 1.79 6 4v2H6z"/>
+          <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm-6 8v-2c0-2.21 3.58-4 6-4s6 1.79 6 4v2H6z" />
         </svg>
       </h2>
       <ul>
@@ -594,18 +776,22 @@
       </ul>
     </section>
 
+    <div id="no-results" role="alert" aria-live="polite">Ничего не найдено.</div>
+
     <footer>
       <p>Если у вас есть вопросы или нужна помощь — обращайтесь к администрации (<strong>@lia_os</strong>).</p>
     </footer>
   </main>
 
+  <button id="back-to-top" aria-label="Наверх" title="Наверх" type="button">&#8679;</button>
+
   <script>
-    (function(){
+    (function () {
       const toggle = document.getElementById('toc-toggle');
       const list = document.getElementById('toc-list');
 
       function setCollapsed(collapsed) {
-        if(collapsed){
+        if (collapsed) {
           list.classList.add('collapsed');
           toggle.setAttribute('aria-expanded', 'false');
         } else {
@@ -614,7 +800,6 @@
         }
       }
 
-      // Изначально раскрыто
       setCollapsed(false);
 
       toggle.addEventListener('click', () => {
@@ -622,14 +807,187 @@
         setCollapsed(!isCollapsed);
       });
 
-      // Доступность: переключение по Enter и Space
       toggle.addEventListener('keydown', (e) => {
-        if(e.key === 'Enter' || e.key === ' '){
+        if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           toggle.click();
         }
       });
+
+      list.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href').substring(1);
+          const target = document.getElementById(targetId);
+          if (target) {
+            target.focus({ preventScroll: true });
+            window.scrollTo({
+              top: target.getBoundingClientRect().top + window.pageYOffset - 60,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
     })();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('h2, h3, p, ul');
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15
+      });
+
+      elements.forEach(el => {
+        observer.observe(el);
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('search-input');
+      const mainContent = document.getElementById('main-content');
+      const noResults = document.getElementById('no-results');
+      const clearButton = document.getElementById('clear-button');
+
+      function clearHighlights(element) {
+        const marks = element.querySelectorAll('mark');
+        marks.forEach(mark => {
+          const parent = mark.parentNode;
+          parent.replaceChild(document.createTextNode(mark.textContent), mark);
+          parent.normalize();
+        });
+      }
+
+      function highlightText(node, query) {
+        if (node.nodeType === 3) {
+          const val = node.nodeValue;
+          const valLower = val.toLowerCase();
+          const queryLower = query.toLowerCase();
+          let index = valLower.indexOf(queryLower);
+          if (index >= 0) {
+            const frag = document.createDocumentFragment();
+            let lastIndex = 0;
+            while (index >= 0) {
+              if (index > lastIndex) {
+                frag.appendChild(document.createTextNode(val.substring(lastIndex, index)));
+              }
+              const mark = document.createElement('mark');
+              mark.textContent = val.substring(index, index + query.length);
+              frag.appendChild(mark);
+              lastIndex = index + query.length;
+              index = valLower.indexOf(queryLower, lastIndex);
+            }
+            if (lastIndex < val.length) {
+              frag.appendChild(document.createTextNode(val.substring(lastIndex)));
+            }
+            node.parentNode.replaceChild(frag, node);
+            return 1;
+          }
+        } else if (node.nodeType === 1 && node.childNodes && !['SCRIPT', 'STYLE', 'MARK'].includes(node.tagName)) {
+          for (let i = 0; i < node.childNodes.length; i++) {
+            i += highlightText(node.childNodes[i], query);
+          }
+        }
+        return 0;
+      }
+
+      function showAll() {
+        const sections = mainContent.querySelectorAll('section');
+        sections.forEach(section => {
+          section.style.display = '';
+        });
+        const introParagraphs = Array.from(mainContent.children).filter(el =>
+          el.tagName === 'P' && !el.closest('section')
+        );
+        introParagraphs.forEach(p => {
+          p.style.display = '';
+        });
+        noResults.style.display = 'none';
+      }
+
+      function doSearch() {
+        const query = searchInput.value.trim();
+        clearHighlights(mainContent);
+
+        if (query.length < 2) {
+          showAll();
+          clearButton.style.display = query.length > 0 ? 'inline' : 'none';
+          noResults.style.display = 'none';
+          return;
+        }
+
+        clearButton.style.display = 'inline';
+
+        const sections = mainContent.querySelectorAll('section');
+        let anyMatch = false;
+
+        sections.forEach(section => {
+          const text = section.textContent.toLowerCase();
+          if (text.includes(query.toLowerCase())) {
+            highlightText(section, query);
+            section.style.display = '';
+            anyMatch = true;
+          } else {
+            section.style.display = 'none';
+          }
+        });
+
+        const introParagraphs = Array.from(mainContent.children).filter(el =>
+          el.tagName === 'P' && !el.closest('section')
+        );
+        introParagraphs.forEach(p => {
+          const text = p.textContent.toLowerCase();
+          if (text.includes(query.toLowerCase())) {
+            highlightText(p, query);
+            p.style.display = '';
+            anyMatch = true;
+          } else {
+            p.style.display = 'none';
+          }
+        });
+
+        noResults.style.display = anyMatch ? 'none' : 'block';
+      }
+
+      let debounceTimeout;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(doSearch, 250);
+      });
+
+      clearButton.addEventListener('click', () => {
+        searchInput.value = '';
+        clearButton.style.display = 'none';
+        clearHighlights(mainContent);
+        showAll();
+        searchInput.focus();
+      });
+
+      clearButton.style.display = 'none';
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('back-to-top');
+
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          btn.style.display = 'flex';
+        } else {
+          btn.style.display = 'none';
+        }
+      });
+
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.getElementById('search-input').focus();
+      });
+    });
   </script>
 </body>
+
 </html>
