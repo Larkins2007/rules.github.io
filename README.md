@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -22,7 +23,7 @@
         sans-serif;
       margin: 0;
       line-height: 1.6;
-      color: #222;
+      color: #cbd5e1;
       min-height: 100vh;
       padding-top: 100px;
       box-sizing: border-box;
@@ -32,10 +33,8 @@
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
 
-      /* Новый фон: спокойный голубовато-зеленый с легкой текстурой */
-      background-color: #a7c7c7;
-      background-image:
-        url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+      background-color: #0b1a2d;
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
       background-repeat: repeat;
       background-size: auto;
 
@@ -43,139 +42,132 @@
       z-index: 0;
     }
 
-    /* Улучшенные волны — выше, ярче, контрастнее и быстрее */
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      left: 0;
-      width: 100vw;
-      height: 280px; /* увеличена высота */
-      background-repeat: repeat-x;
-      background-size: 2200px 280px;
-      bottom: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.6; /* увеличена непрозрачность */
-      animation-timing-function: linear;
-      background-image: url("data:image/svg+xml,%3csvg width='2200' height='280' viewBox='0 0 2200 280' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill='%23ffffff' fill-opacity='0.3' d='M0 140c110-140 220 140 330 140s220-280 330-280 220 280 330 280 220-280 330-280 220 280 330 280 220-280 330-280v140H0z'/%3e%3c/svg%3e");
-    }
-
-    body::before {
-      bottom: 0;
-      opacity: 0.6;
-      animation-name: waveMove1;
-      animation-duration: 6s; /* быстрее */
-      animation-iteration-count: infinite;
-    }
-
-    body::after {
-      bottom: 40px; /* чуть выше */
-      opacity: 0.45;
-      animation-name: waveMove2;
-      animation-duration: 4s; /* быстрее */
-      animation-iteration-count: infinite;
-    }
-
-    @keyframes waveMove1 {
-      0% {
-        background-position-x: 0;
-      }
-
-      100% {
-        background-position-x: 2200px;
-      }
-    }
-
-    @keyframes waveMove2 {
-      0% {
-        background-position-x: 0;
-      }
-
-      100% {
-        background-position-x: -2200px;
-      }
-    }
-
-    /* === Поиск === */
-    #search-container {
+    /* === Фоновые облака === */
+    #background-container {
       position: fixed;
       top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255 255 255 / 0.95);
-      backdrop-filter: blur(12px);
-      max-width: 900px;
-      width: 100%;
-      padding: 12px 20px;
-      box-sizing: border-box;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-      user-select: none;
-    }
-
-    #search-input {
-      width: 100%;
-      max-width: 400px;
-      padding: 10px 40px 10px 14px;
-      font-size: 1.1em;
-      border: 2px solid #4f46e5;
-      border-radius: 12px;
-      outline-offset: 2px;
-      transition: border-color 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      color: #2c2f48;
-      background: #fefefe;
-      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
-      position: relative;
-    }
-
-    #search-input::placeholder {
-      color: #a5b4fc;
-    }
-
-    #search-input:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 8px #6366f1;
-      background: #fff;
-    }
-
-    #clear-button {
-      position: absolute;
-      right: 30px;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
       background: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 1.5em;
-      color: #4f46e5;
-      padding: 0;
-      line-height: 1;
+    }
+
+    .cloud {
+      position: absolute;
+      top: 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      opacity: 0.25;
+      animation-timing-function: linear;
+      filter: drop-shadow(0 0 6px rgba(107, 122, 140, 0.5));
       user-select: none;
-      display: none;
-      transition: color 0.3s ease;
-      z-index: 10;
+      pointer-events: none;
+      will-change: transform;
+      animation: cloudMove linear infinite;
     }
 
-    #clear-button:hover,
-    #clear-button:focus {
-      color: #6366f1;
-      outline: none;
+    .cloud.small {
+      width: 100px;
+      height: 60px;
     }
 
-    /* === Основной контент === */
+    .cloud.medium {
+      width: 180px;
+      height: 100px;
+    }
+
+    .cloud.large {
+      width: 280px;
+      height: 150px;
+    }
+
+    .cloud1 {
+      background-image: url("data:image/svg+xml,%3csvg width='280' height='150' viewBox='0 0 280 150' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cellipse cx='140' cy='75' rx='120' ry='60' fill='%236b7a8c' fill-opacity='0.2'/%3e%3c/svg%3e");
+      border-radius: 120px / 60px;
+    }
+
+    .cloud2 {
+      background-image: url("data:image/svg+xml,%3csvg width='180' height='100' viewBox='0 0 180 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='60' cy='50' r='40' fill='%236b7a8c' fill-opacity='0.15'/%3e%3ccircle cx='110' cy='50' r='50' fill='%236b7a8c' fill-opacity='0.15'/%3e%3c/svg%3e");
+      border-radius: 100px / 50px;
+    }
+
+    .cloud3 {
+      background-image: url("data:image/svg+xml,%3csvg width='100' height='60' viewBox='0 0 100 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='40' cy='30' r='20' fill='%236b7a8c' fill-opacity='0.15'/%3e%3ccircle cx='70' cy='30' r='30' fill='%236b7a8c' fill-opacity='0.15'/%3e%3c/svg%3e");
+      border-radius: 60px / 30px;
+    }
+
+    .cloud1.large {
+      animation-duration: 120s;
+      top: 10vh;
+      left: -300px;
+    }
+
+    .cloud2.medium {
+      animation-duration: 90s;
+      top: 25vh;
+      left: -180px;
+      animation-delay: 30s;
+    }
+
+    .cloud3.small {
+      animation-duration: 75s;
+      top: 40vh;
+      left: -100px;
+      animation-delay: 15s;
+    }
+
+    .cloud1.medium {
+      animation-duration: 110s;
+      top: 55vh;
+      left: -250px;
+      animation-delay: 45s;
+    }
+
+    .cloud2.small {
+      animation-duration: 95s;
+      top: 70vh;
+      left: -150px;
+      animation-delay: 60s;
+    }
+
+    @keyframes cloudMove {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(110vw);
+      }
+    }
+
+    /* Иконки (частицы) */
+    #particles-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 40vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: visible;
+      will-change: transform;
+      background: transparent;
+    }
+
+    /* Основной контент */
     main {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(11, 26, 45, 0.75);
       backdrop-filter: blur(12px);
       border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
       max-width: 900px;
       width: 100%;
       padding: 30px 40px;
       box-sizing: border-box;
-      color: #374151;
+      color: #cbd5e1;
       animation: fadeInMain 0.8s ease forwards;
       user-select: text;
       outline-offset: 4px;
@@ -197,20 +189,6 @@
       }
     }
 
-    @keyframes rainbowGradient {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
     h1 {
       font-family: 'Roboto Slab', serif;
       font-size: 2.4em;
@@ -226,10 +204,24 @@
       text-align: center;
     }
 
+    @keyframes rainbowGradient {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
     main>p:first-of-type {
       font-family: 'Inter', sans-serif;
       font-size: 1.2em;
-      color: #2c2f48;
+      color: #a0aec0;
       margin-top: 0;
       margin-bottom: 2em;
       max-width: 700px;
@@ -238,213 +230,55 @@
       text-align: center;
     }
 
-    h2 svg,
-    h3 svg {
-      display: none !important;
-    }
-
-    nav[aria-label="Оглавление"] {
-      margin-bottom: 2.5em;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
-      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
-      max-width: 900px;
-      user-select: none;
-      font-family: 'Inter', sans-serif;
-      position: relative;
-      z-index: 10;
-    }
-
-    .toc-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 1.5em;
-      color: #fff;
-      cursor: pointer;
-      padding: 14px 24px;
-      border-radius: 14px 14px 0 0;
-      background: linear-gradient(90deg, #d8b4fe, #7c3aed);
-      box-shadow: inset 0 3px 6px rgba(255 255 255 / 0.25);
-      transition: background 0.3s ease;
-      user-select: none;
-    }
-
-    .toc-header:hover,
-    .toc-header:focus {
-      background: linear-gradient(90deg, #a78bfa, #6d28d9);
-      outline: none;
-      box-shadow:
-        inset 0 3px 8px rgba(255 255 255 / 0.4),
-        0 0 12px #a78bfaaa;
-    }
-
-    .toc-icon {
-      width: 28px;
-      height: 28px;
-      stroke: #f3e8ff;
-      animation: icon-spin 4s ease-in-out infinite;
-      flex-shrink: 0;
-      user-select: none;
-    }
-
-    nav ul.toc-list {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      max-height: 500px;
-      overflow-y: auto;
-      background: #faf5ff;
-      border-radius: 0 0 14px 14px;
-      box-shadow: inset 0 0 12px #a78bfa88;
-      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      z-index: 10;
-    }
-
-    nav ul.toc-list.collapsed {
-      max-height: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-
-    nav ul.toc-list li {
-      border-bottom: 1.5px dotted #a78bfa;
-      transition: background-color 0.25s ease;
-    }
-
-    nav ul.toc-list li:last-child {
-      border-bottom: none;
-    }
-
-    nav ul.toc-list li a {
-      display: block;
-      padding: 14px 28px;
-      font-weight: 600;
-      font-size: 1.1em;
-      color: #5b21b6;
-      background: linear-gradient(270deg, #7c3aed, #a78bfa);
-      background-size: 600% 600%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: rainbowGradient 15s ease infinite;
-      text-decoration: none;
-      user-select: none;
-      border-radius: 0 0 0 0;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      text-align: left;
-    }
-
-    nav ul.toc-list li a:hover,
-    nav ul.toc-list li a:focus {
-      color: #4c1d95;
-      background: none;
-      text-decoration: underline;
-      outline: none;
-      background-color: #ede9fe;
-      user-select: text;
-    }
-
-    nav ul.toc-list li a.active {
-      background-color: #c4b5fd;
-      color: #4c1d95 !important;
-      font-weight: 700;
-      box-shadow: 0 0 10px #a78bfacc;
-      border-radius: 10px 0 0 10px;
-      user-select: text;
-    }
-
-    @keyframes icon-spin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      50% {
-        transform: rotate(15deg);
-      }
-
-      100% {
-        transform: rotate(0deg);
-      }
-    }
-
-    section+section {
-      border-top: 3px dashed;
+    h2:not(:first-of-type),
+    h3:not(:first-of-type) {
+      border-top: 2px solid;
       border-image-slice: 1;
-      border-image-source: linear-gradient(to right,
-        #ff6b6b,
-        #fbc531,
-        #4cd137,
-        #00a8ff,
-        #9c88ff);
+      border-image-source: linear-gradient(90deg, #7c3aed, #a78bfa);
+      border-style: solid;
+      padding-top: 16px;
       margin-top: 48px;
-      padding-top: 32px;
+      user-select: none;
+      cursor: default;
+      font-weight: 700;
     }
 
     h2:not(:first-of-type) {
-      border-top: 3px dashed;
-      border-image-slice: 1;
-      border-image-source: linear-gradient(to right,
-        #f093fb,
-        #6a11cb,
-        #2575fc);
-      padding-top: 24px;
-      margin-top: 48px;
       text-align: center;
-      user-select: none;
-    }
-
-    h3:not(:first-of-type) {
-      border-top: 2px dotted;
-      border-image-slice: 1;
-      border-image-source: linear-gradient(to right,
-        #fcd34d,
-        #f97316);
-      padding-top: 12px;
-      margin-top: 28px;
-      user-select: none;
-      text-align: left;
-    }
-
-    ul li:not(:last-child) {
-      border-bottom: 1.5px dotted;
-      border-image-slice: 1;
-      border-image-source: linear-gradient(to right,
-        #34d399,
-        #3b82f6);
-      padding-bottom: 6px;
-      margin-bottom: 6px;
-    }
-
-    h2,
-    h3 {
-      font-weight: 700;
-      user-select: none;
-      cursor: default;
-      background-clip: text;
-      -webkit-background-clip: text;
+      font-size: 1.6em;
       color: transparent;
+      background-image: linear-gradient(270deg, #7c3aed, #a78bfa);
+      background-size: 600% 600%;
+      -webkit-background-clip: text;
+      background-clip: text;
       animation: rainbowGradient 15s ease infinite;
       text-shadow: 0 0 2px rgba(124, 58, 237, 0.3);
     }
 
-    h2 {
-      font-size: 1.6em;
-      background-image: linear-gradient(270deg, #7c3aed, #a78bfa);
-    }
-
-    h3 {
-      font-size: 1.25em;
-      background-image: linear-gradient(270deg, #5b21b6, #c4b5fd);
+    /* Исправленные стили для h3 - видимый текст с тенью, без прозрачности и градиентов */
+    section h3 {
+      border: none !important;
+      padding: 0 !important;
+      margin-bottom: 0.5em;
+      color: #d8b4fe;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      background-clip: unset !important;
+      text-shadow:
+        0 0 4px rgba(168, 85, 247, 0.7),
+        0 0 8px rgba(168, 85, 247, 0.5);
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     p,
     ul {
       font-family: 'Inter', sans-serif;
       font-size: 1.05em;
-      color: #4b5563;
+      color: #cbd5e1;
       letter-spacing: 0.02em;
       opacity: 0;
       transform: translateY(20px);
@@ -466,17 +300,18 @@
 
     ul li {
       margin-bottom: 0.8em;
+      border-bottom: none;
     }
 
     strong {
       font-family: 'Inter', sans-serif;
-      color: #1e293b;
+      color: #d8b4fe;
       font-weight: 700;
     }
 
     em {
       font-family: 'Inter', sans-serif;
-      color: #6b7280;
+      color: #a0aec0;
       font-style: italic;
     }
 
@@ -484,7 +319,7 @@
       font-family: 'Inter', sans-serif;
       margin-top: 40px;
       font-size: 0.9em;
-      color: #6b7280;
+      color: #9ca3af;
       text-align: center;
       user-select: none;
       letter-spacing: 0.02em;
@@ -493,8 +328,8 @@
     }
 
     mark {
-      background-color: #a5b4fc;
-      color: #1e293b;
+      background-color: #7c3aed88;
+      color: #e0e7ff;
       font-weight: 700;
       border-radius: 3px;
       padding: 0 2px;
@@ -504,7 +339,7 @@
     }
 
     mark:hover {
-      background-color: #c7d2fe;
+      background-color: #a78bfaaa;
       box-shadow: none;
     }
 
@@ -545,164 +380,189 @@
       margin: 0;
     }
 
-    @media (max-width: 700px) {
-      body {
-        margin: 10px;
-        padding: 0;
-      }
-
-      main {
-        padding: 20px 24px;
-      }
-
-      h1 {
-        font-size: 1.9em;
-      }
-
-      h2 {
-        font-size: 1.3em;
-      }
-
-      h3 {
-        font-size: 1.1em;
-      }
-
-      nav[aria-label="Оглавление"] {
-        margin-bottom: 1.8em;
-      }
-
-      nav ul.toc-list li a {
-        padding: 10px 20px;
-        font-size: 1em;
-      }
-
-      #search-input {
-        max-width: 100%;
-        font-size: 1em;
-        padding-right: 36px;
-      }
-
-      #clear-button {
-        right: 10px;
-      }
+    a {
+      color: #a78bfa;
+      text-decoration: none;
     }
 
-    /* === Частицы === */
-    #particles-container {
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+    }
+
+    button {
+      background-color: #7c3aed;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover,
+    button:focus {
+      background-color: #a78bfa;
+    }
+
+    textarea,
+    input {
+      font-family: inherit;
+      font-size: 14px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #4c1d95;
+      background-color: #1e293b;
+      color: #e0e7ff;
+      resize: vertical;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    textarea::placeholder,
+    input::placeholder {
+      color: #9ca3af;
+    }
+
+    #search-container {
       position: fixed;
       top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 20; /* Поверх текста и волн */
-      overflow: visible;
-      will-change: transform;
-      background: transparent;
-    }
-
-    .particle {
-      position: absolute;
-      will-change: transform, left, top, opacity;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(11, 26, 45, 0.95);
+      backdrop-filter: blur(12px);
+      max-width: 900px;
+      width: 100%;
+      padding: 12px 20px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
       user-select: none;
-      pointer-events: none;
-      background-size: contain;
-      background-repeat: no-repeat;
-      filter:
-        drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
-      transition: opacity 0.3s ease;
-      backface-visibility: hidden;
-      transform-style: preserve-3d;
-      opacity: 0.6;
-      mix-blend-mode: screen;
-      border-radius: 50%; /* для столкновений проще считать круги */
-      /* чуть больше иконки */
-      width: 36px !important;
-      height: 36px !important;
+      color: #cbd5e1;
     }
 
-    /* Twitch иконка */
-    .twitch {
-      background-image: url('data:image/svg+xml;utf8,<svg fill="%237c3aed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 2v20l4-4h6l6 4V2H2zm14 12h-2v-4h2v4zm4-8H6v10H4v-12h16v10z"/></svg>');
-      filter:
-        drop-shadow(0 2px 6px rgba(124, 58, 237, 0.6))
-        drop-shadow(0 0 10px rgba(124, 58, 237, 0.4));
+    #search-input {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px 40px 10px 14px;
+      font-size: 1.1em;
+      border: 2px solid #7c3aed;
+      border-radius: 12px;
+      outline-offset: 2px;
+      transition: border-color 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      color: #e0e7ff;
+      background: #1e293b;
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15);
+      position: relative;
     }
 
-    /* YouTube иконка */
-    .youtube {
-      background-image: url('data:image/svg+xml;utf8,<svg fill="%23ff0000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6zM21.8 7.2c-.2-.8-.8-1.4-1.6-1.6C18.4 5 12 5 12 5s-6.4 0-8.2.6c-.8.2-1.4.8-1.6 1.6C2 9 2 12 2 12s0 3 .2 4.8c.2.8.8 1.4 1.6 1.6C5.6 19 12 19 12 19s6.4 0 8.2-.6c.8-.2 1.4-.8 1.6-1.6.2-1.8.2-4.8.2-4.8s0-3-.2-4.8z"/></svg>');
-      filter:
-        drop-shadow(0 2px 6px rgba(255, 0, 0, 0.6))
-        drop-shadow(0 0 10px rgba(255, 0, 0, 0.4));
+    #search-input::placeholder {
+      color: #a5b4fc;
     }
 
-    /* Heart (сердце) */
-    .heart {
-      filter:
-        drop-shadow(0 2px 6px rgba(224, 36, 94, 0.6))
-        drop-shadow(0 0 10px rgba(224, 36, 94, 0.4));
-      width: 34px !important;
-      height: 34px !important;
+    #search-input:focus {
+      border-color: #a78bfa;
+      box-shadow: 0 0 8px #a78bfa;
+      background: #2c2f48;
+      color: #fefefe;
     }
 
-    /* Like (палец вверх) */
-    .like {
-      filter:
-        drop-shadow(0 2px 6px rgba(34, 197, 94, 0.6))
-        drop-shadow(0 0 10px rgba(34, 197, 94, 0.4));
-      width: 34px !important;
-      height: 34px !important;
+    #clear-button {
+      position: absolute;
+      right: 30px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5em;
+      color: #a78bfa;
+      padding: 0;
+      line-height: 1;
+      user-select: none;
+      display: none;
+      transition: color 0.3s ease;
+      z-index: 10;
     }
 
-    /* Dislike (палец вниз) */
-    .dislike {
-      filter:
-        drop-shadow(0 2px 6px rgba(239, 68, 68, 0.6))
-        drop-shadow(0 0 10px rgba(239, 68, 68, 0.4));
-      width: 34px !important;
-      height: 34px !important;
+    #clear-button:hover,
+    #clear-button:focus {
+      color: #d8b4fe;
+      outline: none;
     }
 
-    /* Размеры частиц адаптивно */
-    @media (max-width: 768px) {
-      .particle {
-        width: 28px !important;
-        height: 28px !important;
-      }
-
-      .twitch,
-      .youtube {
-        width: 30px !important;
-        height: 30px !important;
-      }
-
-      .heart,
-      .like,
-      .dislike {
-        width: 26px !important;
-        height: 26px !important;
-      }
+    /* === Блок содержания (nav) с тонкими фиолетовыми линиями сверху и снизу у пунктов, прозрачным фоном и свечением === */
+    nav {
+      background: transparent;
+      padding: 10px 20px;
+      border-radius: 12px;
+      max-width: 900px;
+      margin: 0 auto 40px;
+      user-select: none;
+      color: #cbd5e1;
+      box-shadow: 0 0 12px rgb(124 58 237 / 0.4);
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1em;
+      text-align: center;
+      position: relative;
+      z-index: 10;
     }
 
-    @media (max-width: 400px) {
-      .particle {
-        width: 22px !important;
-        height: 22px !important;
-      }
+    nav .toc-header {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      user-select: none;
+      color: #a78bfa;
+      font-weight: 700;
+      font-size: 1.3em;
+    }
 
-      .twitch,
-      .youtube {
-        width: 24px !important;
-        height: 24px !important;
-      }
+    nav .toc-header svg {
+      stroke: #a78bfa;
+      stroke-width: 3;
+      width: 30px;
+      height: 30px;
+    }
 
-      .heart,
-      .like,
-      .dislike {
-        width: 20px !important;
-        height: 20px !important;
-      }
+    nav ul.toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 300px;
+      overflow-y: auto;
+      user-select: text;
+    }
+
+    nav ul.toc-list li {
+      margin: 8px 0;
+    }
+
+    nav ul.toc-list li a {
+      color: #cbd5e1;
+      text-decoration: none;
+      padding: 4px 0;
+      border-top: 1.5px solid transparent;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.3s ease, color 0.3s ease;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    nav ul.toc-list li a:hover,
+    nav ul.toc-list li a:focus,
+    nav ul.toc-list li a.active {
+      border-top-color: #a78bfa;
+      border-bottom-color: #a78bfa;
+      outline: none;
+      color: #a78bfa;
     }
   </style>
 </head>
@@ -714,6 +574,14 @@
     <button id="clear-button" aria-label="Очистить поиск" title="Очистить поиск">&times;</button>
   </div>
 
+  <div id="background-container" aria-hidden="true" aria-label="Фоновая анимация облаков и иконок">
+    <div class="cloud cloud1 large"></div>
+    <div class="cloud cloud2 medium"></div>
+    <div class="cloud cloud3 small"></div>
+    <div class="cloud cloud1 medium"></div>
+    <div class="cloud cloud2 small"></div>
+  </div>
+
   <main id="main-content" tabindex="-1">
     <h1>Правила чата</h1>
 
@@ -721,8 +589,8 @@
 
     <nav aria-label="Оглавление">
       <div class="toc-header" role="button" tabindex="0" aria-expanded="true" aria-controls="toc-list" id="toc-toggle">
-        <svg class="toc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="28" height="28"
-          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="toc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -732,13 +600,13 @@
       <ul id="toc-list" tabindex="-1" class="toc-list">
         <li><a href="#ne-zhelatelno">Не желательно</a></li>
         <li><a href="#zapreshchaetsya">Запрещается</a></li>
-        <li><a href="#dopolneniya-po-moderatoram">Важные дополнения по работе модераторов и контролю качества их
-            действий</a></li>
+        <li><a href="#dopolneniya-po-moderatoram">Важные дополнения по работе модераторов и контролю качества их действий</a></li>
         <li><a href="#nakazaniya">Наказания</a></li>
         <li><a href="#politika">Политика модераторов</a></li>
       </ul>
     </nav>
 
+    <!-- Основное содержимое правил -->
     <section id="samoe-vazhnoe">
       <h2>Самое важное</h2>
       <p><strong>Каждый участник чата обязан уважать других, соблюдать правила и поддерживать дружелюбную атмосферу.</strong>
@@ -747,8 +615,6 @@
     </section>
 
     <section id="ne-zhelatelno">
-      <h2>Не желательно</h2>
-
       <h3>1. Использование большого количества ненормативной лексики <button class="copy-btn"
           title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Предупреждение</p>
@@ -889,7 +755,6 @@
     </footer>
   </main>
 
-  <!-- Контейнер для частиц поверх всего -->
   <div id="particles-container" aria-hidden="true"></div>
 
   <script>
@@ -938,34 +803,15 @@
       });
     })();
 
-    // === Появление элементов с анимацией при скролле ===
-    document.addEventListener('DOMContentLoaded', () => {
-      const elements = document.querySelectorAll('h2, h3, p, ul');
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.15
-      });
-
-      elements.forEach(el => {
-        observer.observe(el);
-      });
-    });
-
-    // === Поиск по тексту с подсветкой ===
-    document.addEventListener('DOMContentLoaded', () => {
+    // === Поиск по тексту ===
+    (function () {
       const searchInput = document.getElementById('search-input');
+      const clearButton = document.getElementById('clear-button');
       const mainContent = document.getElementById('main-content');
       const noResults = document.getElementById('no-results');
-      const clearButton = document.getElementById('clear-button');
 
-      function clearHighlights(element) {
-        const marks = element.querySelectorAll('mark');
+      function clearHighlights() {
+        const marks = mainContent.querySelectorAll('mark');
         marks.forEach(mark => {
           const parent = mark.parentNode;
           parent.replaceChild(document.createTextNode(mark.textContent), mark);
@@ -973,385 +819,115 @@
         });
       }
 
-      function highlightText(node, query) {
-        if (node.nodeType === 3) {
-          const val = node.nodeValue;
-          const valLower = val.toLowerCase();
-          const queryLower = query.toLowerCase();
-          let index = valLower.indexOf(queryLower);
-          if (index >= 0) {
-            const frag = document.createDocumentFragment();
-            let lastIndex = 0;
-            while (index >= 0) {
-              if (index > lastIndex) {
-                frag.appendChild(document.createTextNode(val.substring(lastIndex, index)));
+      function highlightText(text) {
+        if (!text) return;
+
+        const regex = new RegExp(`(${text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+
+        function walk(node) {
+          if (node.nodeType === 3) { // текстовый узел
+            const match = node.data.match(regex);
+            if (match) {
+              const span = document.createElement('mark');
+              const frag = document.createDocumentFragment();
+              let lastIndex = 0;
+              node.data.replace(regex, (m, p1, offset) => {
+                const before = node.data.slice(lastIndex, offset);
+                if (before) {
+                  frag.appendChild(document.createTextNode(before));
+                }
+                const mark = document.createElement('mark');
+                mark.textContent = p1;
+                frag.appendChild(mark);
+                lastIndex = offset + p1.length;
+              });
+              const after = node.data.slice(lastIndex);
+              if (after) {
+                frag.appendChild(document.createTextNode(after));
               }
-              const mark = document.createElement('mark');
-              mark.textContent = val.substring(index, index + query.length);
-              frag.appendChild(mark);
-              lastIndex = index + query.length;
-              index = valLower.indexOf(queryLower, lastIndex);
+              node.parentNode.replaceChild(frag, node);
             }
-            if (lastIndex < val.length) {
-              frag.appendChild(document.createTextNode(val.substring(lastIndex)));
+          } else if (node.nodeType === 1 && node.childNodes && !['SCRIPT', 'STYLE', 'NOSCRIPT', 'MARK', 'BUTTON'].includes(node.tagName)) {
+            for (let i = 0; i < node.childNodes.length; i++) {
+              walk(node.childNodes[i]);
             }
-            node.parentNode.replaceChild(frag, node);
-            return 1;
-          }
-        } else if (node.nodeType === 1 && node.childNodes && !['SCRIPT', 'STYLE', 'MARK'].includes(node.tagName)) {
-          for (let i = 0; i < node.childNodes.length; i++) {
-            i += highlightText(node.childNodes[i], query);
           }
         }
-        return 0;
+
+        walk(mainContent);
       }
 
-      function showAll() {
-        const sections = mainContent.querySelectorAll('section');
-        sections.forEach(section => {
-          section.style.display = '';
-        });
-        const introParagraphs = Array.from(mainContent.children).filter(el =>
-          el.tagName === 'P' && !el.closest('section')
-        );
-        introParagraphs.forEach(p => {
-          p.style.display = '';
-        });
-        noResults.style.display = 'none';
-      }
+      function filterContent(text) {
+        clearHighlights();
+        const lowerText = text.toLowerCase();
+        let visibleCount = 0;
 
-      function doSearch() {
-        const query = searchInput.value.trim();
-        clearHighlights(mainContent);
+        [...mainContent.querySelectorAll('section, p, ul')].forEach(el => {
+          if (el === noResults) return;
+          const textContent = el.textContent.toLowerCase();
+          if (textContent.includes(lowerText)) {
+            el.classList.add('visible');
+            visibleCount++;
+          } else {
+            el.classList.remove('visible');
+          }
+        });
 
-        if (query.length < 2) {
-          showAll();
-          clearButton.style.display = query.length > 0 ? 'inline' : 'none';
+        if (visibleCount === 0) {
+          noResults.style.display = 'block';
+        } else {
           noResults.style.display = 'none';
-          return;
+          highlightText(text);
         }
-
-        clearButton.style.display = 'inline';
-
-        const sections = mainContent.querySelectorAll('section');
-        let anyMatch = false;
-
-        sections.forEach(section => {
-          const text = section.textContent.toLowerCase();
-          if (text.includes(query.toLowerCase())) {
-            highlightText(section, query);
-            section.style.display = '';
-            anyMatch = true;
-          } else {
-            section.style.display = 'none';
-          }
-        });
-
-        const introParagraphs = Array.from(mainContent.children).filter(el =>
-          el.tagName === 'P' && !el.closest('section')
-        );
-        introParagraphs.forEach(p => {
-          const text = p.textContent.toLowerCase();
-          if (text.includes(query.toLowerCase())) {
-            highlightText(p, query);
-            p.style.display = '';
-            anyMatch = true;
-          } else {
-            p.style.display = 'none';
-          }
-        });
-
-        noResults.style.display = anyMatch ? 'none' : 'block';
       }
 
-      let debounceTimeout;
       searchInput.addEventListener('input', () => {
-        clearTimeout(debounceTimeout);
-        debounceTimeout = setTimeout(doSearch, 250);
+        const val = searchInput.value.trim();
+        if (val.length > 0) {
+          clearButton.style.display = 'inline';
+          filterContent(val);
+        } else {
+          clearButton.style.display = 'none';
+          clearHighlights();
+          [...mainContent.querySelectorAll('section, p, ul')].forEach(el => el.classList.add('visible'));
+          noResults.style.display = 'none';
+        }
       });
 
       clearButton.addEventListener('click', () => {
         searchInput.value = '';
         clearButton.style.display = 'none';
-        clearHighlights(mainContent);
-        showAll();
+        clearHighlights();
+        [...mainContent.querySelectorAll('section, p, ul')].forEach(el => el.classList.add('visible'));
+        noResults.style.display = 'none';
         searchInput.focus();
       });
 
-      clearButton.style.display = 'none';
-    });
+      // Изначально показываем все
+      [...mainContent.querySelectorAll('section, p, ul')].forEach(el => el.classList.add('visible'));
+    })();
 
-    // === Кнопки копирования правил ===
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const h3 = btn.parentElement;
+    // === Копирование текста правила по кнопке 📋 ===
+    (function () {
+      document.querySelectorAll('.copy-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          const h3 = button.closest('h3');
           if (!h3) return;
-          const text = Array.from(h3.childNodes)
-            .filter(n => n.nodeType === 3)
-            .map(n => n.textContent.trim())
-            .join(' ');
-          if (!text) return;
+          // Текст заголовка без кнопки
+          const clone = h3.cloneNode(true);
+          const btn = clone.querySelector('.copy-btn');
+          if (btn) btn.remove();
+          const text = clone.textContent.trim();
           navigator.clipboard.writeText(text).then(() => {
-            const original = btn.textContent;
-            btn.textContent = '✔️';
+            button.textContent = '✔️';
             setTimeout(() => {
-              btn.textContent = original;
+              button.textContent = '📋';
             }, 1500);
-          }).catch(() => {
-            alert('Не удалось скопировать правило.');
           });
         });
       });
-    });
-
-    // === Подсветка активного пункта меню при скролле ===
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = document.querySelectorAll('section[id]');
-      const tocLinks = document.querySelectorAll('nav ul.toc-list li a');
-
-      function onScroll() {
-        let current = '';
-        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-        sections.forEach(section => {
-          const sectionTop = section.offsetTop - 80;
-          if (scrollY >= sectionTop) {
-            current = section.id;
-          }
-        });
-        tocLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + current) {
-            link.classList.add('active');
-          }
-        });
-      }
-      window.addEventListener('scroll', onScroll);
-      onScroll();
-    });
-
-    // === Плавный скролл по меню ===
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('nav ul.toc-list li a').forEach(anchor => {
-        anchor.addEventListener('click', e => {
-          e.preventDefault();
-          const targetId = anchor.getAttribute('href').substring(1);
-          const target = document.getElementById(targetId);
-          if (!target) return;
-          window.scrollTo({
-            top: target.getBoundingClientRect().top + window.pageYOffset - 60,
-            behavior: 'smooth'
-          });
-        });
-      });
-    });
-
-    // === Улучшенный скрипт частиц с столкновениями и высокой скоростью ===
-    document.addEventListener('DOMContentLoaded', () => {
-      const container = document.getElementById('particles-container');
-      const types = ['twitch', 'youtube', 'heart', 'like', 'dislike'];
-
-      const maxParticles = 40; // для производительности
-
-      function random(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-
-      // Конвертация px в vw/vh
-      function pxToVw(px) {
-        return (px / window.innerWidth) * 100;
-      }
-
-      function pxToVh(px) {
-        return (px / window.innerHeight) * 100;
-      }
-
-      // Класс частицы
-      class Particle {
-        constructor(type, index, total) {
-          this.el = document.createElement('div');
-          this.el.classList.add('particle', type);
-
-          const colCount = Math.ceil(Math.sqrt(total));
-          const rowCount = Math.ceil(total / colCount);
-
-          const col = index % colCount;
-          const row = Math.floor(index / colCount);
-
-          const cellWidth = 100 / colCount;
-          const cellHeight = 100 / rowCount;
-
-          this.baseX = cellWidth * col + random(5, cellWidth - 5);
-          this.baseY = cellHeight * row + random(5, cellHeight - 5);
-
-          this.posX = this.baseX;
-          this.posY = this.baseY;
-
-          // Размеры частицы в px
-          let baseSize = 36;
-          if (window.innerWidth <= 400) baseSize = 22;
-          else if (window.innerWidth <= 768) baseSize = 28;
-          if (type === 'twitch' || type === 'youtube') baseSize += 4;
-          if (['heart', 'like', 'dislike'].includes(type)) baseSize -= 2;
-
-          this.sizePx = random(baseSize * 0.85, baseSize * 1.15);
-          this.radiusVw = pxToVw(this.sizePx) / 2;
-
-          this.el.style.width = `${this.sizePx}px`;
-          this.el.style.height = `${this.sizePx}px`;
-          this.el.style.opacity = (0.4 + Math.random() * 0.3).toFixed(2);
-
-          // Начальная скорость (vw/vh в кадр)
-          this.velocityX = random(-0.18, 0.18); // увеличена скорость в 2 раза
-          this.velocityY = random(-0.15, 0.15);
-
-          this.swayPhase = Math.random() * Math.PI * 2;
-          this.opacityPhase = Math.random() * Math.PI * 2;
-          this.rotation = random(0, 360);
-          this.rotationSpeed = random(-4, 4); // ускорено вращение
-
-          this.maxOffset = 14; // увеличено смещение (vw)
-
-          container.appendChild(this.el);
-        }
-
-        update() {
-          // Возврат к базовой позиции с небольшой силой
-          const dxBase = this.baseX - this.posX;
-          const dyBase = this.baseY - this.posY;
-          this.velocityX += dxBase * 0.008;
-          this.velocityY += dyBase * 0.008;
-
-          // Ограничение скорости
-          this.velocityX = Math.max(Math.min(this.velocityX, 0.2), -0.2);
-          this.velocityY = Math.max(Math.min(this.velocityY, 0.18), -0.18);
-
-          this.posX += this.velocityX;
-          this.posY += this.velocityY;
-
-          // Ограничение смещения с отскоком
-          const offsetX = this.posX - this.baseX;
-          const offsetY = this.posY - this.baseY;
-
-          if (offsetX > this.maxOffset) {
-            this.posX = this.baseX + this.maxOffset;
-            this.velocityX *= -0.7;
-          } else if (offsetX < -this.maxOffset) {
-            this.posX = this.baseX - this.maxOffset;
-            this.velocityX *= -0.7;
-          }
-
-          if (offsetY > this.maxOffset) {
-            this.posY = this.baseY + this.maxOffset;
-            this.velocityY *= -0.7;
-          } else if (offsetY < -this.maxOffset) {
-            this.posY = this.baseY - this.maxOffset;
-            this.velocityY *= -0.7;
-          }
-
-          // Колебания для живости (усилены)
-          this.swayPhase += 0.1;
-          const swayX = Math.sin(this.swayPhase) * 3;
-          const swayY = Math.cos(this.swayPhase * 1.7) * 2;
-
-          // Пульсация прозрачности (ускорена)
-          this.opacityPhase += 0.07;
-          const opacityT = (Math.sin(this.opacityPhase) + 1) / 2;
-          const opacity = 0.4 + opacityT * 0.4;
-
-          // Вращение (ускорено)
-          this.rotation += this.rotationSpeed;
-
-          // Обновление стилей
-          this.el.style.left = `${this.posX + swayX}vw`;
-          this.el.style.top = `${this.posY + swayY}vh`;
-          this.el.style.opacity = opacity.toFixed(2);
-          this.el.style.transform = `rotate(${this.rotation.toFixed(1)}deg)`;
-        }
-      }
-
-      // Создаём частицы
-      let particles = [];
-
-      function createParticles() {
-        // Очистка старых
-        particles.forEach(p => {
-          if (p.el.parentNode) p.el.parentNode.removeChild(p.el);
-        });
-        particles = [];
-
-        for (let i = 0; i < maxParticles; i++) {
-          const type = types[Math.floor(Math.random() * types.length)];
-          particles.push(new Particle(type, i, maxParticles));
-        }
-      }
-
-      // Столкновение двух частиц (отталкивание)
-      function handleCollision(p1, p2) {
-        const dx = p2.posX - p1.posX;
-        const dy = p2.posY - p1.posY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const minDist = p1.radiusVw + p2.radiusVw;
-
-        if (dist < minDist && dist > 0) {
-          // Нормализуем вектор столкновения
-          const nx = dx / dist;
-          const ny = dy / dist;
-
-          // Проекция скоростей на нормаль
-          const p1v = p1.velocityX * nx + p1.velocityY * ny;
-          const p2v = p2.velocityX * nx + p2.velocityY * ny;
-
-          // Обмен скоростями по нормали (упругое столкновение)
-          const m1 = 1; // массы одинаковые
-          const m2 = 1;
-
-          const optimizedP = (2 * (p1v - p2v)) / (m1 + m2);
-
-          p1.velocityX -= optimizedP * m2 * nx;
-          p1.velocityY -= optimizedP * m2 * ny;
-
-          p2.velocityX += optimizedP * m1 * nx;
-          p2.velocityY += optimizedP * m1 * ny;
-
-          // Коррекция позиций, чтобы частицы не слипались
-          const overlap = minDist - dist;
-          const correctionX = nx * overlap / 2;
-          const correctionY = ny * overlap / 2;
-
-          p1.posX -= correctionX;
-          p1.posY -= correctionY;
-          p2.posX += correctionX;
-          p2.posY += correctionY;
-        }
-      }
-
-      // Анимация
-      function animate() {
-        // Обновляем движения
-        particles.forEach(p => p.update());
-
-        // Обрабатываем столкновения (парами)
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            handleCollision(particles[i], particles[j]);
-          }
-        }
-
-        requestAnimationFrame(animate);
-      }
-
-      createParticles();
-      animate();
-
-      // Оптимизация ресайза с задержкой
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          createParticles();
-        }, 300);
-      });
-    });
+    })();
   </script>
 </body>
+
+</html>
