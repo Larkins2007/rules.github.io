@@ -280,29 +280,8 @@
       font-size: 1.05em;
       color: #cbd5e1;
       letter-spacing: 0.02em;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
       user-select: text;
       text-align: left;
-    }
-
-    p.visible,
-    ul.visible {
-      opacity: 1;
-      transform: translateY(0);
-      animation: fadeUpMove 0.8s ease forwards;
-    }
-
-    @keyframes fadeUpMove {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     ul {
@@ -516,7 +495,7 @@
       outline: none;
     }
 
-    /* === Блок содержания (nav) с тонкими фиолетовыми линиями сверху и снизу у пунктов, прозрачным фоном и свечением === */
+    /* === Блок навигации (без анимаций) === */
     nav {
       background: transparent;
       padding: 10px 20px;
@@ -564,74 +543,55 @@
       user-select: none;
     }
 
+    /* Список навигации без анимаций и переходов, пункты в строку по центру */
     nav ul.toc-list {
       list-style: none;
       padding: 0;
       margin: 0;
-      max-height: 300px;
-      overflow-y: auto;
+      max-height: none !important;
+      overflow: visible !important;
       user-select: text;
-      /* Сбросим анимацию при скрытии */
-      opacity: 1;
-      transform: translateX(0);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto !important;
+      transition: none !important;
+      display: block !important;
+
+      text-align: center;
     }
 
     nav ul.toc-list.collapsed {
-      opacity: 0;
-      transform: translateX(-10px);
-      pointer-events: none;
-      height: 0;
-      overflow: hidden;
-      transition: opacity 0.4s ease, transform 0.4s ease, height 0.3s ease;
+      display: none !important;
+      max-height: 0 !important;
+      overflow: hidden !important;
+      opacity: 0 !important;
+      transform: none !important;
+      pointer-events: none !important;
+      transition: none !important;
     }
 
     nav ul.toc-list li {
-      opacity: 0;
-      transform: translateX(-10px);
-      animation-fill-mode: forwards;
-      animation-name: fadeInSlideRight;
-      animation-duration: 0.5s;
-      animation-timing-function: ease-out;
-      animation-delay: calc(var(--index) * 0.1s);
-    }
-
-    nav ul.toc-list li:nth-child(1) {
-      --index: 1;
-    }
-
-    nav ul.toc-list li:nth-child(2) {
-      --index: 2;
-    }
-
-    nav ul.toc-list li:nth-child(3) {
-      --index: 3;
-    }
-
-    nav ul.toc-list li:nth-child(4) {
-      --index: 4;
-    }
-
-    nav ul.toc-list li:nth-child(5) {
-      --index: 5;
-    }
-
-    @keyframes fadeInSlideRight {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      display: inline-block;
+      margin: 0 12px;
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      animation-fill-mode: none !important;
+      animation-name: none !important;
+      animation-duration: 0s !important;
+      animation-timing-function: none !important;
+      animation-delay: 0s !important;
+      border-top: 1.5px solid transparent;
+      border-bottom: 1.5px solid transparent;
+      padding: 4px 0;
     }
 
     nav ul.toc-list li a {
       color: #cbd5e1;
       text-decoration: none;
-      padding: 4px 0;
-      border-top: 1.5px solid transparent;
-      border-bottom: 1.5px solid transparent;
-      transition: border-color 0.3s ease, color 0.3s ease;
       display: inline-block;
       width: fit-content;
+      transition: color 0.3s ease, border-color 0.3s ease;
     }
 
     nav ul.toc-list li a:hover,
@@ -709,6 +669,22 @@
         transform: scale(1.3);
       }
     }
+
+    /* === Плавное появление секций при скролле === */
+    section,
+    p,
+    ul {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    section.visible,
+    p.visible,
+    ul.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 
@@ -740,12 +716,13 @@
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
-        Содержание
+        Навигация
       </div>
       <ul id="toc-list" tabindex="-1" class="toc-list">
         <li><a href="#ne-zhelatelno">Не желательно</a></li>
         <li><a href="#zapreshchaetsya">Запрещается</a></li>
-        <li><a href="#dopolneniya-po-moderatoram">Важные дополнения по работе модераторов и контролю качества их действий</a></li>
+        <li><a href="#dopolneniya-po-moderatoram">Важные дополнения по работе модераторов и контролю качества их действий</a>
+        </li>
         <li><a href="#nakazaniya">Наказания</a></li>
         <li><a href="#politika">Политика модераторов</a></li>
       </ul>
@@ -915,7 +892,7 @@
   <div id="particles-container" aria-hidden="true"></div>
 
   <script>
-    // === Оглавление: раскрытие/скрытие ===
+    // === Оглавление: раскрытие/скрытие без анимаций ===
     (() => {
       const toggle = document.getElementById('toc-toggle');
       const list = document.getElementById('toc-list');
@@ -944,7 +921,7 @@
         }
       });
 
-      // Плавный скролл и фокус по клику на оглавление
+      // Плавный скролл и фокус по клику на навигацию
       list.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', e => {
           e.preventDefault();
@@ -959,6 +936,41 @@
           }
         });
       });
+    })();
+
+    // === Появление секций при скролле (вверх и вниз) ===
+    (() => {
+      const elements = [...document.querySelectorAll('section, p, ul')];
+
+      function onScroll() {
+        const windowHeight = window.innerHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        elements.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          const elTop = rect.top + scrollTop;
+          const elBottom = elTop + rect.height;
+
+          // Показываем элемент, если он хотя бы частично виден в viewport с небольшим запасом (50px)
+          if ((elBottom > scrollTop + 50) && (elTop < scrollTop + windowHeight - 50)) {
+            if (!el.classList.contains('visible')) {
+              el.classList.add('visible');
+            }
+          } else {
+            if (el.classList.contains('visible')) {
+              el.classList.remove('visible');
+            }
+          }
+        });
+      }
+
+      // Инициализируем видимость при загрузке
+      window.addEventListener('load', onScroll);
+      window.addEventListener('scroll', onScroll);
+      window.addEventListener('resize', onScroll);
+
+      // Запуск сразу
+      onScroll();
     })();
 
     // === Поиск по тексту с подсветкой ===
