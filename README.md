@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -399,11 +398,13 @@
       font-weight: 700;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      user-select: none;
     }
 
     button:hover,
     button:focus {
       background-color: #a78bfa;
+      outline: none;
     }
 
     textarea,
@@ -635,6 +636,13 @@
         а при повторе временно ограничим возможность писать (мут).</p>
       <p><strong>Пример:</strong> «Ты неправ!» — нормально, «Ты идиот!» — повод для наказания.</p>
 
+      <h3>
+        4. Flash — видео/голосовые (редкие громкие звуки, резко мерцающие видео)
+        <button class="copy-btn" title="Скопировать правило">📋</button>
+      </h3>
+      <p><strong>Наказание:</strong> Мут</p>
+      <p><strong>Пояснение:</strong> Такие материалы могут раздражать или вредить здоровью участников (например, вызывать головную боль). Поэтому за их публикацию временно ограничивается возможность писать.</p>
+
       <h3>5. Оскорбление персонажей, уважайте чувства и вкусы других <button class="copy-btn" title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Предупреждение или мут</p>
       <p><strong>Пояснение:</strong> Критика — нормально, а личные оскорбления — нет.</p>
@@ -744,6 +752,11 @@
       </ul>
     </section>
 
+    <!-- Добавленная благодарность -->
+    <section id="thanks" aria-label="Благодарность">
+      <p>Спасибо, что соблюдаете правила и делаете чат приятным для всех!</p>
+    </section>
+
     <div id="no-results" role="alert" aria-live="polite">Ничего не найдено.</div>
 
     <section id="signature" aria-label="Подпись автора">
@@ -759,7 +772,7 @@
 
   <script>
     // === Оглавление: раскрытие/скрытие ===
-    (function () {
+    (() => {
       const toggle = document.getElementById('toc-toggle');
       const list = document.getElementById('toc-list');
 
@@ -787,6 +800,7 @@
         }
       });
 
+      // Плавный скролл и фокус по клику на оглавление
       list.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', e => {
           e.preventDefault();
@@ -803,13 +817,14 @@
       });
     })();
 
-    // === Поиск по тексту ===
-    (function () {
+    // === Поиск по тексту с подсветкой ===
+    (() => {
       const searchInput = document.getElementById('search-input');
       const clearButton = document.getElementById('clear-button');
       const mainContent = document.getElementById('main-content');
       const noResults = document.getElementById('no-results');
 
+      // Убираем все <mark>
       function clearHighlights() {
         const marks = mainContent.querySelectorAll('mark');
         marks.forEach(mark => {
@@ -819,32 +834,29 @@
         });
       }
 
+      // Подсветка текста в элементе
       function highlightText(text) {
         if (!text) return;
-
-        const regex = new RegExp(`(${text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        // Экранируем спецсимволы для RegExp
+        const escaped = text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escaped})`, 'gi');
 
         function walk(node) {
           if (node.nodeType === 3) { // текстовый узел
             const match = node.data.match(regex);
             if (match) {
-              const span = document.createElement('mark');
               const frag = document.createDocumentFragment();
               let lastIndex = 0;
-              node.data.replace(regex, (m, p1, offset) => {
+              node.data.replace(regex, (m, offset) => {
                 const before = node.data.slice(lastIndex, offset);
-                if (before) {
-                  frag.appendChild(document.createTextNode(before));
-                }
+                if (before) frag.appendChild(document.createTextNode(before));
                 const mark = document.createElement('mark');
-                mark.textContent = p1;
+                mark.textContent = m;
                 frag.appendChild(mark);
-                lastIndex = offset + p1.length;
+                lastIndex = offset + m.length;
               });
               const after = node.data.slice(lastIndex);
-              if (after) {
-                frag.appendChild(document.createTextNode(after));
-              }
+              if (after) frag.appendChild(document.createTextNode(after));
               node.parentNode.replaceChild(frag, node);
             }
           } else if (node.nodeType === 1 && node.childNodes && !['SCRIPT', 'STYLE', 'NOSCRIPT', 'MARK', 'BUTTON'].includes(node.tagName)) {
@@ -857,6 +869,7 @@
         walk(mainContent);
       }
 
+      // Фильтрация по тексту
       function filterContent(text) {
         clearHighlights();
         const lowerText = text.toLowerCase();
@@ -881,6 +894,7 @@
         }
       }
 
+      // Обработчики событий
       searchInput.addEventListener('input', () => {
         const val = searchInput.value.trim();
         if (val.length > 0) {
@@ -908,21 +922,24 @@
     })();
 
     // === Копирование текста правила по кнопке 📋 ===
-    (function () {
+    (() => {
       document.querySelectorAll('.copy-btn').forEach(button => {
         button.addEventListener('click', () => {
           const h3 = button.closest('h3');
           if (!h3) return;
-          // Текст заголовка без кнопки
+          // Клонируем h3 и удаляем кнопку из клона
           const clone = h3.cloneNode(true);
           const btn = clone.querySelector('.copy-btn');
           if (btn) btn.remove();
           const text = clone.textContent.trim();
           navigator.clipboard.writeText(text).then(() => {
+            const originalText = button.textContent;
             button.textContent = '✔️';
             setTimeout(() => {
-              button.textContent = '📋';
+              button.textContent = originalText;
             }, 1500);
+          }).catch(() => {
+            alert('Не удалось скопировать текст');
           });
         });
       });
