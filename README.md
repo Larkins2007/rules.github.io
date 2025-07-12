@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -290,6 +291,18 @@
     ul.visible {
       opacity: 1;
       transform: translateY(0);
+      animation: fadeUpMove 0.8s ease forwards;
+    }
+
+    @keyframes fadeUpMove {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     ul {
@@ -382,11 +395,15 @@
     a {
       color: #a78bfa;
       text-decoration: none;
+      animation: pulseGlow 4s ease-in-out infinite;
+      transition: color 0.3s ease;
     }
 
     a:hover,
     a:focus {
       text-decoration: underline;
+      color: #d8b4fe;
+      outline: none;
     }
 
     button {
@@ -399,6 +416,8 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       user-select: none;
+      animation: pulseGlow 4s ease-in-out infinite;
+      outline-offset: 2px;
     }
 
     button:hover,
@@ -487,6 +506,8 @@
       display: none;
       transition: color 0.3s ease;
       z-index: 10;
+      outline-offset: 2px;
+      animation: pulseGlow 4s ease-in-out infinite;
     }
 
     #clear-button:hover,
@@ -524,13 +545,23 @@
       color: #a78bfa;
       font-weight: 700;
       font-size: 1.3em;
+      outline-offset: 2px;
+      transition: color 0.3s ease;
+    }
+
+    nav .toc-header:hover,
+    nav .toc-header:focus {
+      color: #d8b4fe;
+      outline: none;
     }
 
     nav .toc-header svg {
-      stroke: #a78bfa;
-      stroke-width: 3;
+      stroke: currentColor;
+      stroke-width: 2.5;
       width: 30px;
       height: 30px;
+      transition: stroke 0.3s ease;
+      user-select: none;
     }
 
     nav ul.toc-list {
@@ -540,10 +571,56 @@
       max-height: 300px;
       overflow-y: auto;
       user-select: text;
+      /* Сбросим анимацию при скрытии */
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    nav ul.toc-list.collapsed {
+      opacity: 0;
+      transform: translateX(-10px);
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+      transition: opacity 0.4s ease, transform 0.4s ease, height 0.3s ease;
     }
 
     nav ul.toc-list li {
-      margin: 8px 0;
+      opacity: 0;
+      transform: translateX(-10px);
+      animation-fill-mode: forwards;
+      animation-name: fadeInSlideRight;
+      animation-duration: 0.5s;
+      animation-timing-function: ease-out;
+      animation-delay: calc(var(--index) * 0.1s);
+    }
+
+    nav ul.toc-list li:nth-child(1) {
+      --index: 1;
+    }
+
+    nav ul.toc-list li:nth-child(2) {
+      --index: 2;
+    }
+
+    nav ul.toc-list li:nth-child(3) {
+      --index: 3;
+    }
+
+    nav ul.toc-list li:nth-child(4) {
+      --index: 4;
+    }
+
+    nav ul.toc-list li:nth-child(5) {
+      --index: 5;
+    }
+
+    @keyframes fadeInSlideRight {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     nav ul.toc-list li a {
@@ -564,6 +641,73 @@
       border-bottom-color: #a78bfa;
       outline: none;
       color: #a78bfa;
+    }
+
+    /* === Анимация кнопок копирования === */
+    .copy-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      transition: transform 0.25s ease, color 0.3s ease;
+      color: #a78bfa;
+      user-select: none;
+      padding: 0 6px;
+      border-radius: 4px;
+      outline-offset: 2px;
+      box-shadow: 0 0 4px transparent;
+    }
+
+    .copy-btn:hover,
+    .copy-btn:focus {
+      color: #d8b4fe;
+      transform: translateY(-2px) scale(1.1);
+      box-shadow:
+        0 0 6px #a78bfa,
+        0 0 10px #d8b4fe;
+      outline: none;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .copy-btn:active {
+      transform: translateY(0) scale(0.95);
+      box-shadow: none;
+    }
+
+    /* === Пульсирующее свечение для ссылок и кнопок === */
+    @keyframes pulseGlow {
+      0%,
+      100% {
+        box-shadow: 0 0 0 rgba(167, 139, 250, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
+      }
+    }
+
+    /* === Анимация частиц-звёздочек внизу === */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #a78bfa, transparent);
+      opacity: 0.8;
+      animation-name: twinkle;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%,
+      100% {
+        opacity: 0.6;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.3);
+      }
     }
   </style>
 </head>
@@ -943,6 +1087,38 @@
           });
         });
       });
+    })();
+
+    // === Частицы-звёздочки внизу ===
+    (() => {
+      const container = document.getElementById('particles-container');
+      const PARTICLE_COUNT = 30;
+
+      function createParticle() {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+
+        // Случайный размер от 4 до 10px
+        const size = 4 + Math.random() * 6;
+        p.style.width = `${size}px`;
+        p.style.height = `${size}px`;
+
+        // Случайное начальное положение по горизонтали и вертикали (в пределах контейнера)
+        p.style.left = `${Math.random() * 100}vw`;
+        p.style.bottom = `${Math.random() * 40}vh`;
+
+        // Случайная длительность анимации от 2 до 5 секунд
+        p.style.animationDuration = `${2 + Math.random() * 3}s`;
+
+        // Случайная задержка для разброса анимации
+        p.style.animationDelay = `${Math.random() * 5}s`;
+
+        container.appendChild(p);
+      }
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        createParticle();
+      }
     })();
   </script>
 </body>
