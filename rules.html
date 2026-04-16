@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes" />
   <title>Правила чата · Авис</title>
   <meta name="description" content="Правила чата: соблюдение, модерация, наказания, политика." />
   <meta name="keywords" content="чат, правила, модерация, наказания, политика" />
@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet" />
   <style>
-    /* ===== ОБЩИЕ СТИЛИ (в стиле главной страницы) ===== */
     * {
       margin: 0;
       padding: 0;
@@ -27,7 +26,7 @@
       line-height: 1.6;
       color: #e2e8f0;
       min-height: 100vh;
-      padding-top: 70px; /* место для поиска */
+      padding: 70px 16px 20px;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -40,7 +39,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Фоновые облака */
+    /* Фоновые иконки */
     #background-container {
       position: fixed;
       top: 0;
@@ -52,35 +51,31 @@
       overflow: hidden;
     }
 
-    .cloud {
+    .floating-icon {
       position: absolute;
       top: 0;
-      background-repeat: no-repeat;
-      background-size: contain;
+      width: 60px;
+      height: 60px;
       opacity: 0.2;
       filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.4));
       user-select: none;
       pointer-events: none;
       will-change: transform;
-      animation: cloudMove linear infinite;
+      animation: floatAcross linear infinite;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
-    .cloud.small { width: 100px; height: 60px; }
-    .cloud.medium { width: 180px; height: 100px; }
-    .cloud.large { width: 280px; height: 150px; }
+    .icon-twitch { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239144ff'%3E%3Cpath d='M11.57 5.93h1.71v5.14h-1.71V5.93zm-4.28 0h1.71v5.14H7.29V5.93zm8.57 0h1.71v5.14h-1.71V5.93zM4.14 2L2 6.29v12.85h5.14V22l3.43-2.86h2.57L19.71 16V2H4.14zm14.14 11.14l-3.43 3.43h-2.57l-2.57 2.57v-2.57H5.86V3.43h12.42v9.71z'/%3E%3C/svg%3E"); }
+    .icon-youtube { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff4d4d'%3E%3Cpath d='M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.906 3.434.069 6.546.058 12 .069 17.454.906 20.566 4.385 20.816c3.599.245 11.626.246 15.23 0 3.479-.25 4.316-3.362 4.327-8.816-.011-5.454-.848-8.566-4.327-8.816zM9 16V8l8 4-8 4z'/%3E%3C/svg%3E"); }
+    .icon-tiktok { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M17.07 10.17c1.15.83 2.53 1.3 4 1.33v-2.54c-.5.03-1 .03-1.5 0v2.54c-1.47-.03-2.85-.5-4-1.33v6.09c0 3.18-2.58 5.76-5.76 5.76-1.32 0-2.54-.45-3.51-1.2 1.05.9 2.43 1.45 3.93 1.45 3.18 0 5.76-2.58 5.76-5.76v-6.34h1.08zm-4.34-2.41c-.73-.8-1.17-1.86-1.17-3.01h-1.33c.33 1.21 1.18 2.21 2.5 3.01z'/%3E%3C/svg%3E"); }
 
-    .cloud1.large { animation-duration: 120s; top: 10vh; left: -300px; }
-    .cloud2.medium { animation-duration: 90s; top: 25vh; left: -180px; animation-delay: 30s; }
-    .cloud3.small { animation-duration: 75s; top: 40vh; left: -100px; animation-delay: 15s; }
-    .cloud1.medium { animation-duration: 110s; top: 55vh; left: -250px; animation-delay: 45s; }
-    .cloud2.small { animation-duration: 95s; top: 70vh; left: -150px; animation-delay: 60s; }
-
-    @keyframes cloudMove {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(110vw); }
+    @keyframes floatAcross {
+      0% { transform: translateX(-100px) translateY(20vh) rotate(0deg); }
+      100% { transform: translateX(110vw) translateY(60vh) rotate(360deg); }
     }
 
-    /* Частицы */
     #particles-container {
       position: fixed;
       bottom: 0;
@@ -105,7 +100,6 @@
       50% { opacity: 1; transform: scale(1.3); }
     }
 
-    /* Основной контейнер */
     main {
       background: rgba(11, 26, 45, 0.75);
       backdrop-filter: blur(14px);
@@ -114,7 +108,7 @@
       max-width: 960px;
       width: 100%;
       padding: 32px 40px;
-      margin: 20px 20px 40px;
+      margin: 20px auto;
       color: #e2e8f0;
       animation: fadeInMain 0.6s ease forwards;
       text-align: left;
@@ -140,7 +134,6 @@
       animation: rainbowGradient 10s ease infinite;
       text-shadow: 0 2px 8px rgba(0,0,0,0.2);
       text-align: center;
-      letter-spacing: -0.01em;
     }
 
     @keyframes rainbowGradient {
@@ -154,7 +147,6 @@
       margin-top: 2em;
       margin-bottom: 1em;
       color: #c4b5fd;
-      font-weight: 700;
       border-bottom: 2px solid rgba(167, 139, 250, 0.4);
       padding-bottom: 0.3em;
       text-align: center;
@@ -166,9 +158,6 @@
       margin-bottom: 0.6em;
       color: #d8b4fe;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
       border-left: 4px solid #a78bfa;
       padding-left: 16px;
     }
@@ -180,24 +169,21 @@
 
     strong {
       color: #e9d5ff;
-      font-weight: 700;
     }
 
     a {
       color: #c4b5fd;
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.2s, border-bottom 0.2s;
       border-bottom: 1px dotted transparent;
+      transition: color 0.2s, border-bottom 0.2s;
     }
 
     a:hover {
       color: #e9d5ff;
       border-bottom: 1px dotted #c4b5fd;
-      text-shadow: 0 0 6px rgba(196, 181, 253, 0.5);
     }
 
-    /* Карточки для разделов */
     section {
       background: rgba(30, 41, 59, 0.3);
       border-radius: 18px;
@@ -205,36 +191,8 @@
       margin: 30px 0;
       backdrop-filter: blur(4px);
       border: 1px solid rgba(167, 139, 250, 0.2);
-      transition: transform 0.2s ease, box-shadow 0.2s;
     }
 
-    section:hover {
-      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.15);
-    }
-
-    /* Кнопка копирования */
-    .copy-btn {
-      background: rgba(124, 58, 237, 0.2);
-      border: 1px solid rgba(167, 139, 250, 0.4);
-      color: #c4b5fd;
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 1.1em;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      margin-left: 8px;
-      backdrop-filter: blur(4px);
-    }
-
-    .copy-btn:hover {
-      background: #7c3aed;
-      color: white;
-      border-color: #a78bfa;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 14px rgba(124, 58, 237, 0.4);
-    }
-
-    /* Навигация (оглавление) */
     nav {
       background: rgba(124, 58, 237, 0.1);
       border-radius: 40px;
@@ -291,7 +249,7 @@
       color: #e9d5ff;
     }
 
-    /* Поисковая строка (фиксированная) */
+    /* Поиск */
     #search-container {
       position: fixed;
       top: 0;
@@ -320,7 +278,6 @@
       background: #1e293b;
       color: #f1f5f9;
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     #search-input:focus {
@@ -337,7 +294,6 @@
       color: #a78bfa;
       cursor: pointer;
       padding: 0 8px;
-      transition: color 0.2s;
       display: none;
     }
 
@@ -345,19 +301,6 @@
       color: #d8b4fe;
     }
 
-    /* Анимация появления */
-    section, p, ul {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    section.visible, p.visible, ul.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Подсветка поиска */
     mark {
       background: #7c3aedcc;
       color: #fff;
@@ -366,16 +309,16 @@
       font-weight: 600;
     }
 
-    /* Подпись */
-    #signature p {
-      font-family: 'Roboto Slab', serif;
-      font-size: 1.6em;
-      background: linear-gradient(270deg, #ff9a9e, #a1c4fd, #d4b5ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-align: center;
-      margin-top: 40px;
+    /* Анимация появления одноразовая */
+    .fade-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     footer {
@@ -386,12 +329,31 @@
       padding-top: 24px;
     }
 
-    /* Адаптив */
+    /* Адаптивность */
     @media (max-width: 700px) {
-      main { padding: 20px 20px; }
-      h1 { font-size: 2.2em; }
-      .toc-list { flex-direction: column; align-items: center; }
-      #clear-button { right: 30px; }
+      body {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      main {
+        padding: 20px 18px;
+      }
+      h1 {
+        font-size: 2.2em;
+      }
+      .toc-list {
+        flex-direction: column;
+        align-items: center;
+      }
+      #search-container {
+        padding: 10px 16px;
+      }
+      #search-input {
+        padding: 10px 40px 10px 16px;
+      }
+      #clear-button {
+        right: 20px;
+      }
     }
   </style>
 </head>
@@ -402,18 +364,17 @@
   </div>
 
   <div id="background-container" aria-hidden="true">
-    <div class="cloud cloud1 large"></div>
-    <div class="cloud cloud2 medium"></div>
-    <div class="cloud cloud3 small"></div>
-    <div class="cloud cloud1 medium"></div>
-    <div class="cloud cloud2 small"></div>
+    <div class="floating-icon icon-twitch" style="animation-duration: 130s; top: 5vh; left: -80px;"></div>
+    <div class="floating-icon icon-youtube" style="animation-duration: 110s; top: 25vh; left: -120px; animation-delay: 20s;"></div>
+    <div class="floating-icon icon-tiktok" style="animation-duration: 95s; top: 45vh; left: -60px; animation-delay: 10s;"></div>
+    <div class="floating-icon icon-twitch" style="animation-duration: 140s; top: 60vh; left: -150px; animation-delay: 45s;"></div>
+    <div class="floating-icon icon-youtube" style="animation-duration: 100s; top: 75vh; left: -90px; animation-delay: 60s;"></div>
   </div>
 
   <main id="main-content" tabindex="-1">
     <h1>📜 Правила чата</h1>
     <p style="text-align: center; font-size: 1.2em;">Каждый вошедший пользователь добровольно принимает правила нашего чата и обязуется их соблюдать.</p>
 
-    <!-- Навигация (оглавление) -->
     <nav aria-label="Оглавление">
       <div class="toc-header" id="toc-toggle" role="button" tabindex="0" aria-expanded="true" aria-controls="toc-list">
         <svg class="toc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -432,108 +393,100 @@
       </ul>
     </nav>
 
-    <!-- Самое важное (отдельная секция) -->
     <section id="samoe-vazhnoe">
       <h2>💜 Самое важное</h2>
       <p><strong>Каждый участник чата обязан уважать других, соблюдать правила и поддерживать дружелюбную атмосферу.</strong></p>
       <p>Нарушение этого принципа ведёт к предупреждениям и, при повторении — к более строгим мерам вплоть до бана.</p>
     </section>
 
-    <!-- Не желательно -->
     <section id="ne-zhelatelno">
       <h2>⚠️ Не желательно</h2>
-
-      <h3>1. Использование большого количества ненормативной лексики <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>1. Использование большого количества ненормативной лексики</h3>
       <p><strong>Наказание:</strong> Предупреждение</p>
       <p><strong>Пояснение:</strong> Мы понимаем, что иногда эмоции берут верх, но старайтесь не злоупотреблять матом. Если вы используете ненормативную лексику редко и без оскорблений — это не проблема.</p>
       <p><strong>Пример:</strong> «Вот это классно!» — нормально; «Ты полный [нецензурное слово]» — повод для предупреждения.</p>
 
-      <h3>2. Рекламировать другие группы/каналы <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>2. Рекламировать другие группы/каналы</h3>
       <p><strong>Наказание:</strong> Предупреждение</p>
       <p><strong>Пояснение:</strong> Реклама чужих ресурсов без согласия администрации мешает общению. Если хотите поделиться полезным каналом — сначала свяжитесь с администратором (@lia_os).</p>
       <p><strong>Пример:</strong> «Подпишитесь на мой канал!» — запрещено без разрешения.</p>
 
-      <h3>3. Начинать ссоры, старайтесь поддерживать комфорт в чате <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>3. Начинать ссоры, старайтесь поддерживать комфорт в чате</h3>
       <p><strong>Наказание:</strong> Предупреждение или мут (в зависимости от интенсивности)</p>
       <p><strong>Пояснение:</strong> Споры бывают, но если они переходят в оскорбления или мешают другим — сначала предупредим, а при повторе временно ограничим возможность писать (мут).</p>
       <p><strong>Пример:</strong> «Ты неправ!» — нормально, «Ты идиот!» — повод для наказания.</p>
 
-      <h3>4. Flash — видео/голосовые (редкие громкие звуки, резко мерцающие видео) <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>4. Flash — видео/голосовые (редкие громкие звуки, резко мерцающие видео)</h3>
       <p><strong>Наказание:</strong> Мут</p>
       <p><strong>Пояснение:</strong> Такие материалы могут раздражать или вредить здоровью участников (например, вызывать головную боль). Поэтому за их публикацию временно ограничивается возможность писать.</p>
 
-      <h3>5. Оскорбление персонажей, уважайте чувства и вкусы других <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>5. Оскорбление персонажей, уважайте чувства и вкусы других</h3>
       <p><strong>Наказание:</strong> Предупреждение или мут</p>
       <p><strong>Пояснение:</strong> Критика — нормально, а личные оскорбления — нет.</p>
       <p><strong>Пример:</strong> «Мне не нравится этот персонаж» — допустимо, «Этот персонаж — дурак» — нарушение.</p>
 
-      <h3>6. Пересылка личных сообщений другого человека в беседу <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>6. Пересылка личных сообщений другого человека в беседу</h3>
       <p><strong>Наказание:</strong> Предупреждение</p>
       <p><strong>Пояснение:</strong> Личные сообщения другого участника нельзя пересылать в общий чат без согласия обеих сторон. Если оба участника переписки являются членами группы, часть переписки пересылается только с одобрения обеих сторон. Это помогает сохранять приватность и уважать личное пространство.</p>
       <p><strong>Пример:</strong> Пересылать скриншоты или сообщения из личных диалогов без разрешения — запрещено.</p>
     </section>
 
-    <!-- Запрещается -->
     <section id="zapreshchaetsya">
       <h2>🚫 Запрещается</h2>
-
-      <h3>1. Обсуждение политики и публикация любого контента, связанного с политикой <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>1. Обсуждение политики и публикация любого контента, связанного с политикой</h3>
       <p><strong>Наказание:</strong> Бан</p>
       <p><strong>Пояснение:</strong> Политика часто вызывает конфликты и разделение. Чтобы сохранить дружелюбную атмосферу, такие темы запрещены.</p>
       <p><strong>Пример:</strong> обсуждение выборов, политических лидеров и т.п.</p>
 
-      <h3>2. Оскорбления <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>2. Оскорбления</h3>
       <p><strong>Наказание:</strong> Предупреждение, при повторе — мут или бан</p>
       <p><strong>Пояснение:</strong> Шутки — хорошо, но если кому-то неприятно — защитим его.</p>
       <p><strong>Пример:</strong> «Ты такой смешной дурачок» — шутка, но если это обидело — последует предупреждение.</p>
 
-      <h3>3. Публикация порнографического и околопорнографического контента <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>3. Публикация порнографического и околопорнографического контента</h3>
       <p><strong>Наказание:</strong> Бан</p>
       <p><strong>Пояснение:</strong> Нарушает правила приличия и закон.</p>
       <p><strong>Пример:</strong> откровенные фото, видео или ссылки.</p>
 
-      <h3>4. Публикация треш-контента (стикеры/видео/гиф с расчлененкой и тому подобное) <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>4. Публикация треш-контента (стикеры/видео/гиф с расчлененкой и тому подобное)</h3>
       <p><strong>Наказание:</strong> Бан</p>
       <p><strong>Пояснение:</strong> Шокирующие материалы могут травмировать участников.</p>
       <p><strong>Пример:</strong> видео с насилием или жестокостью.</p>
 
-      <h3>5. Поднятие тем, нарушающих законы РФ (экстремизм, терроризм, пропаганда наркотиков, оскорбление чувств верующих и др.) <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>5. Поднятие тем, нарушающих законы РФ (экстремизм, терроризм, пропаганда наркотиков, оскорбление чувств верующих и др.)</h3>
       <p><strong>Наказание:</strong> Бан</p>
       <p><strong>Пояснение:</strong> Такие темы запрещены законом и чатом.</p>
       <p><strong>Пример:</strong> призывы к насилию, обсуждение запрещённых веществ.</p>
 
-      <h3>6. Спам / флуд (часто повторяющиеся сообщения, сообщения без смысла) <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>6. Спам / флуд (часто повторяющиеся сообщения, сообщения без смысла)</h3>
       <p><strong>Наказание:</strong> Мут</p>
       <p><strong>Пояснение:</strong> Чтобы чат был удобен для всех, не стоит засорять его бессмысленными сообщениями.</p>
       <p><strong>Пример:</strong> повторять одну и ту же фразу много раз подряд.</p>
 
-      <h3>7. Публичное осуждение действий администрации / провокация администрации типа «ну давай бань меня» <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>7. Публичное осуждение действий администрации / провокация администрации типа «ну давай бань меня»</h3>
       <p><strong>Наказание:</strong> Предупреждение или мут</p>
       <p><strong>Пояснение:</strong> Если есть вопросы к администрации — лучше написать в личку, а не провоцировать конфликт в общем чате.</p>
 
-      <h3>8. Любая дискриминация по расовому/национальному/половому/религиозному признаку <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>8. Любая дискриминация по расовому/национальному/половому/религиозному признаку</h3>
       <p><strong>Наказание:</strong> Бан</p>
       <p><strong>Пояснение:</strong> Мы за равенство и уважение ко всем.</p>
       <p><strong>Пример:</strong> оскорбления по национальному признаку недопустимы.</p>
 
-      <h3>9. Просьбы перейти по ссылкам/зарегистрироваться на вредоносном сайте <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>9. Просьбы перейти по ссылкам/зарегистрироваться на вредоносном сайте</h3>
       <p><strong>Наказание:</strong> Бан</p>
       <p><strong>Пояснение:</strong> Безопасность участников — наш приоритет.</p>
       <p><strong>Пример:</strong> ссылки на мошеннические сайты.</p>
     </section>
 
-    <!-- Дополнения по модераторам -->
     <section id="dopolneniya-po-moderatoram">
       <h2>🛡️ Важные дополнения по работе модераторов</h2>
-
-      <h3>10. Модераторы обязаны действовать в соответствии с правилами чата и не использовать свои полномочия в личных интересах <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>10. Модераторы обязаны действовать в соответствии с правилами чата и не использовать свои полномочия в личных интересах</h3>
       <p><strong>Пояснение:</strong> Если заметили нарушение или злоупотребление полномочиями (например, необоснованно мутит или банит, игнорирует правила), обратитесь к высшим администраторам или создателю чата (@lia_os). Жалобы рассматриваются, и мы защищаем от несправедливого обращения.</p>
 
-      <h3>11. Перед применением наказания модератор должен дать словесное предупреждение участнику <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>11. Перед применением наказания модератор должен дать словесное предупреждение участнику</h3>
       <p><strong>Пояснение:</strong> Если поведение начинает нарушать правила или мешать комфорту, модератор предупреждает: «Пожалуйста, прекратите, иначе последуют меры». Если предупреждение игнорируется — применяется наказание (мут, бан и т.п.). Это помогает избежать конфликтов и даёт шанс исправиться.</p>
     </section>
 
-    <!-- Наказания -->
     <section id="nakazaniya">
       <h2>⚖️ Наказания</h2>
       <ul style="list-style-type: '🔸 '; padding-left: 2em;">
@@ -543,7 +496,6 @@
       </ul>
     </section>
 
-    <!-- Политика модераторов -->
     <section id="politika">
       <h2>📋 Политика модераторов</h2>
       <ul style="list-style-type: '✨ '; padding-left: 2em;">
@@ -554,17 +506,13 @@
       </ul>
     </section>
 
-    <!-- Благодарность -->
     <p style="text-align: center; margin-top: 30px;">💖 Спасибо, что соблюдаете правила и делаете чат приятным для всех!</p>
 
     <div id="no-results" role="alert" aria-live="polite" style="display: none; text-align: center; padding: 20px; color: #9ca3af;">Ничего не найдено.</div>
 
-    <div id="signature">
-      <p>by Везунчик</p>
-    </div>
-
     <footer>
       <p>Если у вас есть вопросы или нужна помощь — обращайтесь к администрации (<strong>@lia_os</strong>).</p>
+      <div style="margin-top: 24px; font-family: 'Roboto Slab', serif; font-size: 1.6em; background: linear-gradient(270deg, #ff9a9e, #a1c4fd, #d4b5ff); -webkit-background-clip: text; background-clip: text; color: transparent;">by Везунчик</div>
     </footer>
   </main>
 
@@ -572,162 +520,111 @@
 
   <script>
     (function() {
-      // ---------- ЧАСТИЦЫ ----------
-      const particlesContainer = document.getElementById('particles-container');
+      // Частицы
+      const pc = document.getElementById('particles-container');
       for (let i = 0; i < 30; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
-        const size = 5 + Math.random() * 7;
-        p.style.width = size + 'px';
-        p.style.height = size + 'px';
+        const s = 5 + Math.random() * 7;
+        p.style.width = s + 'px';
+        p.style.height = s + 'px';
         p.style.left = Math.random() * 100 + 'vw';
         p.style.bottom = Math.random() * 40 + 'vh';
         p.style.animationDuration = (2.5 + Math.random() * 3) + 's';
         p.style.animationDelay = Math.random() * 5 + 's';
-        particlesContainer.appendChild(p);
+        pc.appendChild(p);
       }
 
-      // ---------- ОГЛАВЛЕНИЕ (свернуть/развернуть) ----------
+      // Оглавление
       const toggle = document.getElementById('toc-toggle');
-      const tocList = document.getElementById('toc-list');
-      function setCollapsed(collapsed) {
-        tocList.classList.toggle('collapsed', collapsed);
-        toggle.setAttribute('aria-expanded', !collapsed);
-      }
-      setCollapsed(false);
+      const list = document.getElementById('toc-list');
       toggle.addEventListener('click', () => {
-        setCollapsed(!tocList.classList.contains('collapsed'));
+        list.classList.toggle('collapsed');
+        toggle.setAttribute('aria-expanded', !list.classList.contains('collapsed'));
       });
-      toggle.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggle.click();
-        }
-      });
-      // Плавный скролл по якорям
+      toggle.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.click(); } });
       document.querySelectorAll('.toc-list a').forEach(link => {
         link.addEventListener('click', e => {
           e.preventDefault();
           const id = link.getAttribute('href').substring(1);
           const el = document.getElementById(id);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
         });
       });
 
-      // ---------- ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ----------
-      const elements = [...document.querySelectorAll('section, p, ul')];
-      function checkVisibility() {
-        const winHeight = window.innerHeight;
-        const scrollY = window.scrollY;
-        elements.forEach(el => {
-          const rect = el.getBoundingClientRect();
-          const elTop = rect.top + scrollY;
-          const elBottom = elTop + rect.height;
-          const isVisible = (elBottom > scrollY + 50) && (elTop < scrollY + winHeight - 50);
-          el.classList.toggle('visible', isVisible);
-        });
-      }
-      window.addEventListener('load', checkVisibility);
-      window.addEventListener('scroll', checkVisibility);
-      window.addEventListener('resize', checkVisibility);
-      checkVisibility();
-
-      // ---------- ПОИСК И ПОДСВЕТКА ----------
-      const searchInput = document.getElementById('search-input');
-      const clearBtn = document.getElementById('clear-button');
+      // Поиск
+      const input = document.getElementById('search-input');
+      const clear = document.getElementById('clear-button');
       const main = document.getElementById('main-content');
       const noResults = document.getElementById('no-results');
-
       function clearHighlights() {
-        main.querySelectorAll('mark').forEach(m => {
-          m.replaceWith(document.createTextNode(m.textContent));
-        });
+        main.querySelectorAll('mark').forEach(m => m.replaceWith(document.createTextNode(m.textContent)));
         main.normalize();
       }
-
       function highlight(text) {
         if (!text) return;
-        const escaped = text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(${escaped})`, 'gi');
+        const regex = new RegExp(`(${text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
         function walk(node) {
           if (node.nodeType === 3) {
-            const match = node.data.match(regex);
-            if (match) {
+            const m = node.data.match(regex);
+            if (m) {
               const frag = document.createDocumentFragment();
               let last = 0;
-              node.data.replace(regex, (m, offset) => {
+              node.data.replace(regex, (match, offset) => {
                 if (offset > last) frag.appendChild(document.createTextNode(node.data.slice(last, offset)));
                 const mark = document.createElement('mark');
-                mark.textContent = m;
+                mark.textContent = match;
                 frag.appendChild(mark);
-                last = offset + m.length;
+                last = offset + match.length;
               });
               if (last < node.data.length) frag.appendChild(document.createTextNode(node.data.slice(last)));
               node.parentNode.replaceChild(frag, node);
             }
-          } else if (node.nodeType === 1 && !['SCRIPT','STYLE','MARK','BUTTON'].includes(node.tagName)) {
-            for (let child of [...node.childNodes]) walk(child);
+          } else if (node.nodeType === 1 && !['SCRIPT','STYLE','MARK'].includes(node.tagName)) {
+            [...node.childNodes].forEach(walk);
           }
         }
         walk(main);
       }
-
-      function filterAndHighlight(val) {
+      input.addEventListener('input', () => {
+        const val = input.value.trim();
+        clear.style.display = val ? 'block' : 'none';
         clearHighlights();
+        if (!val) {
+          document.querySelectorAll('section, p, ul').forEach(el => el.classList.add('visible'));
+          noResults.style.display = 'none';
+          return;
+        }
         const lower = val.toLowerCase();
         let visible = 0;
-        [...main.querySelectorAll('section, p, ul')].forEach(el => {
+        document.querySelectorAll('section, p, ul').forEach(el => {
           if (el === noResults) return;
-          if (el.textContent.toLowerCase().includes(lower)) {
-            el.classList.add('visible');
-            visible++;
-          } else {
-            el.classList.remove('visible');
-          }
+          if (el.textContent.toLowerCase().includes(lower)) { el.classList.add('visible'); visible++; }
+          else el.classList.remove('visible');
         });
-        if (visible === 0) {
-          noResults.style.display = 'block';
-        } else {
-          noResults.style.display = 'none';
-          highlight(val);
-        }
-      }
-
-      searchInput.addEventListener('input', () => {
-        const val = searchInput.value.trim();
-        clearBtn.style.display = val ? 'block' : 'none';
-        if (val) {
-          filterAndHighlight(val);
-        } else {
-          clearHighlights();
-          elements.forEach(el => el.classList.add('visible'));
-          noResults.style.display = 'none';
-        }
+        noResults.style.display = visible ? 'none' : 'block';
+        if (visible) highlight(val);
       });
-
-      clearBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        clearBtn.style.display = 'none';
+      clear.addEventListener('click', () => {
+        input.value = '';
+        clear.style.display = 'none';
         clearHighlights();
-        elements.forEach(el => el.classList.add('visible'));
+        document.querySelectorAll('section, p, ul').forEach(el => el.classList.add('visible'));
         noResults.style.display = 'none';
-        searchInput.focus();
+        input.focus();
       });
 
-      // ---------- КНОПКИ КОПИРОВАНИЯ ----------
-      document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const h3 = btn.closest('h3');
-          if (!h3) return;
-          const clone = h3.cloneNode(true);
-          clone.querySelector('.copy-btn')?.remove();
-          const text = clone.textContent.trim();
-          navigator.clipboard.writeText(text).then(() => {
-            btn.textContent = '✔️';
-            setTimeout(() => btn.textContent = '📋', 1500);
-          }).catch(() => alert('Не удалось скопировать'));
+      // Анимация появления одноразовая
+      const els = document.querySelectorAll('section, p, h2, h3, ul, nav');
+      els.forEach(el => { if (!el.classList.contains('fade-on-scroll')) el.classList.add('fade-on-scroll'); });
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+      window.addEventListener('load', () => {
+        document.querySelectorAll('.fade-on-scroll').forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight - 50 && r.bottom > 0) el.classList.add('visible');
         });
       });
     })();
