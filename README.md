@@ -720,13 +720,14 @@
       <ul id="toc-list" tabindex="-1" class="toc-list">
         <li><a href="#ne-zhelatelno">Не желательно</a></li>
         <li><a href="#zapreshchaetsya">Запрещается</a></li>
-        <li><a href="#dopolneniya-po-moderatoram">Важные дополнения</a>
+        <li><a href="#dopolneniya-po-moderatoram">Важные дополнения по работе модераторов и контролю качества их действий</a>
         </li>
         <li><a href="#nakazaniya">Наказания</a></li>
         <li><a href="#politika">Политика модераторов</a></li>
       </ul>
     </nav>
 
+    <!-- Основное содержимое правил -->
     <section id="samoe-vazhnoe">
       <h2>Самое важное</h2>
       <p><strong>Каждый участник чата обязан уважать других, соблюдать правила и поддерживать дружелюбную атмосферу.</strong>
@@ -735,7 +736,6 @@
     </section>
 
     <section id="ne-zhelatelno">
-      <h2>1. Не желательно</h2>
       <h3>1. Использование большого количества ненормативной лексики <button class="copy-btn"
           title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Предупреждение</p>
@@ -872,6 +872,7 @@
       </ul>
     </section>
 
+    <!-- Добавленная благодарность -->
     <section id="thanks" aria-label="Благодарность">
       <p>Спасибо, что соблюдаете правила и делаете чат приятным для всех!</p>
     </section>
@@ -928,7 +929,7 @@
           if (target) {
             target.focus({ preventScroll: true });
             window.scrollTo({
-              top: target.getBoundingClientRect().top + window.pageYOffset - 120,
+              top: target.getBoundingClientRect().top + window.pageYOffset - 60,
               behavior: 'smooth'
             });
           }
@@ -936,9 +937,9 @@
       });
     })();
 
-    // === Появление секций при скролле (ДВУСТОРОННЕЕ) ===
+    // === Появление секций при скролле (вверх и вниз) ===
     (() => {
-      const elements = [...document.querySelectorAll('section, p, ul, h1, h2, nav')];
+      const elements = [...document.querySelectorAll('section, p, ul')];
 
       function onScroll() {
         const windowHeight = window.innerHeight;
@@ -949,29 +950,36 @@
           const elTop = rect.top + scrollTop;
           const elBottom = elTop + rect.height;
 
-          // Логика: если элемент в видимой зоне — добавляем visible, если ушел — удаляем
+          // Показываем элемент, если он хотя бы частично виден в viewport с небольшим запасом (50px)
           if ((elBottom > scrollTop + 50) && (elTop < scrollTop + windowHeight - 50)) {
-            el.classList.add('visible');
+            if (!el.classList.contains('visible')) {
+              el.classList.add('visible');
+            }
           } else {
-            el.classList.remove('visible');
+            if (el.classList.contains('visible')) {
+              el.classList.remove('visible');
+            }
           }
         });
       }
 
+      // Инициализируем видимость при загрузке
       window.addEventListener('load', onScroll);
       window.addEventListener('scroll', onScroll);
       window.addEventListener('resize', onScroll);
+
+      // Запуск сразу
       onScroll();
     })();
 
-    // === Поиск по тексту с подсветкой и авто-раскрытием навигации ===
+    // === Поиск по тексту с подсветкой ===
     (() => {
       const searchInput = document.getElementById('search-input');
       const clearButton = document.getElementById('clear-button');
       const mainContent = document.getElementById('main-content');
       const noResults = document.getElementById('no-results');
-      const tocList = document.getElementById('toc-list');
 
+      // Убираем все <mark>
       function clearHighlights() {
         const marks = mainContent.querySelectorAll('mark');
         marks.forEach(mark => {
@@ -981,13 +989,15 @@
         });
       }
 
+      // Подсветка текста в элементе
       function highlightText(text) {
         if (!text) return;
+        // Экранируем спецсимволы для RegExp
         const escaped = text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const regex = new RegExp(`(${escaped})`, 'gi');
 
         function walk(node) {
-          if (node.nodeType === 3) {
+          if (node.nodeType === 3) { // текстовый узел
             const match = node.data.match(regex);
             if (match) {
               const frag = document.createDocumentFragment();
@@ -1010,9 +1020,11 @@
             }
           }
         }
+
         walk(mainContent);
       }
 
+      // Фильтрация по тексту
       function filterContent(text) {
         clearHighlights();
         const lowerText = text.toLowerCase();
@@ -1023,11 +1035,9 @@
           const textContent = el.textContent.toLowerCase();
           if (textContent.includes(lowerText)) {
             el.classList.add('visible');
-            el.style.display = 'block';
             visibleCount++;
           } else {
             el.classList.remove('visible');
-            el.style.display = 'none';
           }
         });
 
@@ -1039,20 +1049,16 @@
         }
       }
 
+      // Обработчики событий
       searchInput.addEventListener('input', () => {
         const val = searchInput.value.trim();
         if (val.length > 0) {
           clearButton.style.display = 'inline';
-          tocList.classList.add('collapsed'); // Сворачиваем навигацию при поиске
           filterContent(val);
         } else {
           clearButton.style.display = 'none';
-          tocList.classList.remove('collapsed');
           clearHighlights();
-          [...mainContent.querySelectorAll('section, p, ul')].forEach(el => {
-             el.style.display = 'block';
-             el.classList.add('visible');
-          });
+          [...mainContent.querySelectorAll('section, p, ul')].forEach(el => el.classList.add('visible'));
           noResults.style.display = 'none';
         }
       });
@@ -1060,15 +1066,14 @@
       clearButton.addEventListener('click', () => {
         searchInput.value = '';
         clearButton.style.display = 'none';
-        tocList.classList.remove('collapsed');
         clearHighlights();
-        [...mainContent.querySelectorAll('section, p, ul')].forEach(el => {
-           el.style.display = 'block';
-           el.classList.add('visible');
-        });
+        [...mainContent.querySelectorAll('section, p, ul')].forEach(el => el.classList.add('visible'));
         noResults.style.display = 'none';
         searchInput.focus();
       });
+
+      // Изначально показываем все
+      [...mainContent.querySelectorAll('section, p, ul')].forEach(el => el.classList.add('visible'));
     })();
 
     // === Копирование текста правила по кнопке 📋 ===
@@ -1077,6 +1082,7 @@
         button.addEventListener('click', () => {
           const h3 = button.closest('h3');
           if (!h3) return;
+          // Клонируем h3 и удаляем кнопку из клона
           const clone = h3.cloneNode(true);
           const btn = clone.querySelector('.copy-btn');
           if (btn) btn.remove();
@@ -1084,11 +1090,11 @@
           navigator.clipboard.writeText(text).then(() => {
             const originalText = button.textContent;
             button.textContent = '✔️';
-            button.style.color = '#4cd137'; // Зеленый цвет при успехе
             setTimeout(() => {
               button.textContent = originalText;
-              button.style.color = '';
             }, 1500);
+          }).catch(() => {
+            alert('Не удалось скопировать текст');
           });
         });
       });
@@ -1098,21 +1104,34 @@
     (() => {
       const container = document.getElementById('particles-container');
       const PARTICLE_COUNT = 30;
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
+
+      function createParticle() {
         const p = document.createElement('div');
         p.classList.add('particle');
+
+        // Случайный размер от 4 до 10px
         const size = 4 + Math.random() * 6;
         p.style.width = `${size}px`;
         p.style.height = `${size}px`;
+
+        // Случайное начальное положение по горизонтали и вертикали (в пределах контейнера)
         p.style.left = `${Math.random() * 100}vw`;
         p.style.bottom = `${Math.random() * 40}vh`;
+
+        // Случайная длительность анимации от 2 до 5 секунд
         p.style.animationDuration = `${2 + Math.random() * 3}s`;
+
+        // Случайная задержка для разброса анимации
         p.style.animationDelay = `${Math.random() * 5}s`;
+
         container.appendChild(p);
+      }
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        createParticle();
       }
     })();
   </script>
 </body>
 
 </html>
-
