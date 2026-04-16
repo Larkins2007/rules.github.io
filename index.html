@@ -11,102 +11,291 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet" />
 
   <style>
-    html { scroll-behavior: smooth; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      margin: 0; line-height: 1.6; color: #cbd5e1; min-height: 100vh; padding-top: 100px;
-      box-sizing: border-box; display: flex; justify-content: center;
-      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      line-height: 1.6;
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding-top: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
       background-color: #0b1a2d;
       background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-      background-repeat: repeat; background-size: auto; position: relative; z-index: 0;
+      background-repeat: repeat;
+      background-size: auto;
+      position: relative;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
     #background-container {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;
-      z-index: 0; overflow: hidden; background: transparent;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
     }
+
     .cloud {
-      position: absolute; top: 0; background-repeat: no-repeat; background-size: contain;
-      opacity: 0.25; animation-timing-function: linear; filter: drop-shadow(0 0 6px rgba(107,122,140,0.5));
-      user-select: none; pointer-events: none; will-change: transform; animation: cloudMove linear infinite;
+      position: absolute;
+      top: 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      opacity: 0.2;
+      filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.4));
+      user-select: none;
+      pointer-events: none;
+      will-change: transform;
+      animation: cloudMove linear infinite;
     }
+
     .cloud.small { width: 100px; height: 60px; }
     .cloud.medium { width: 180px; height: 100px; }
     .cloud.large { width: 280px; height: 150px; }
+
     .cloud1.large { animation-duration: 120s; top: 10vh; left: -300px; }
     .cloud2.medium { animation-duration: 90s; top: 25vh; left: -180px; animation-delay: 30s; }
     .cloud3.small { animation-duration: 75s; top: 40vh; left: -100px; animation-delay: 15s; }
     .cloud1.medium { animation-duration: 110s; top: 55vh; left: -250px; animation-delay: 45s; }
     .cloud2.small { animation-duration: 95s; top: 70vh; left: -150px; animation-delay: 60s; }
-    @keyframes cloudMove { 0% { transform: translateX(0); } 100% { transform: translateX(110vw); } }
+
+    @keyframes cloudMove {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(110vw); }
+    }
 
     #particles-container {
-      position: fixed; bottom: 0; left: 0; width: 100vw; height: 40vh; pointer-events: none;
-      z-index: 1; overflow: visible; will-change: transform; background: transparent;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 40vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: visible;
     }
+
     .particle {
-      position: absolute; border-radius: 50%; background: radial-gradient(circle at center, #a78bfa, transparent);
-      opacity: 0.8; animation-name: twinkle; animation-iteration-count: infinite; animation-timing-function: ease-in-out;
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #c4b5fd, #a78bfa);
+      opacity: 0.7;
+      animation: twinkle infinite ease-in-out;
     }
+
     @keyframes twinkle {
-      0%, 100% { opacity: 0.6; transform: scale(1); }
+      0%, 100% { opacity: 0.4; transform: scale(1); }
       50% { opacity: 1; transform: scale(1.3); }
     }
 
     main {
-      background: rgba(11, 26, 45, 0.75); backdrop-filter: blur(12px); border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5); max-width: 900px; width: 100%;
-      padding: 30px 40px; box-sizing: border-box; color: #cbd5e1;
-      animation: fadeInMain 0.8s ease forwards; user-select: text; outline-offset: 4px;
-      text-align: left; margin-top: 20px; position: relative; z-index: 10;
+      background: rgba(11, 26, 45, 0.75);
+      backdrop-filter: blur(14px);
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(124, 58, 237, 0.25);
+      max-width: 960px;
+      width: 100%;
+      padding: 32px 40px;
+      margin: 20px 20px 40px;
+      color: #e2e8f0;
+      animation: fadeInMain 0.6s ease forwards;
+      text-align: left;
+      position: relative;
+      z-index: 10;
+      border: 1px solid rgba(167, 139, 250, 0.2);
     }
+
     @keyframes fadeInMain {
-      from { opacity: 0; transform: translateY(15px) scale(0.95); }
+      from { opacity: 0; transform: translateY(15px) scale(0.98); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     h1 {
-      font-family: 'Roboto Slab', serif; font-size: 2.4em; margin-bottom: 0.4em; color: transparent;
-      background: linear-gradient(270deg, #ff6b6b, #fbc531, #4cd137, #00a8ff, #9c88ff, #ff6b6b);
-      background-size: 1200% 1200%; -webkit-background-clip: text; background-clip: text;
-      animation: rainbowGradient 10s ease infinite; text-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      user-select: none; text-align: center;
+      font-family: 'Roboto Slab', serif;
+      font-size: 2.8em;
+      margin-bottom: 0.3em;
+      color: transparent;
+      background: linear-gradient(270deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb, #d4b5ff, #ff9a9e);
+      background-size: 1200% 1200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: rainbowGradient 10s ease infinite;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      text-align: center;
+      letter-spacing: -0.01em;
     }
+
     @keyframes rainbowGradient {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    p, ul { font-family: 'Inter', sans-serif; font-size: 1.05em; color: #cbd5e1; letter-spacing: 0.02em; user-select: text; text-align: left; }
-    ul { padding-left: 1.4em; margin-bottom: 1.5em; }
-    ul li { margin-bottom: 0.8em; border-bottom: none; }
-    strong { font-family: 'Inter', sans-serif; color: #d8b4fe; font-weight: 700; }
-    em { font-family: 'Inter', sans-serif; color: #a0aec0; font-style: italic; }
-    h3 { color: #a78bfa; font-weight: 600; margin-top: 2em; margin-bottom: 1em; }
+    p, li {
+      font-size: 1.05em;
+      color: #d1d5db;
+    }
 
-    .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1em; margin: 2em 0; }
-    .social-item { background: rgba(124,58,237,0.2); padding: 1.2em; border-radius: 8px; border-left: 4px solid #a78bfa; }
-    .social-link { font-size: 1.1em; display: block; margin: 0.5em 0; }
+    strong {
+      color: #d8b4fe;
+      font-weight: 700;
+    }
+
+    em {
+      color: #a0aec0;
+      font-style: italic;
+    }
+
+    h2 {
+      font-size: 1.6em;
+      margin-top: 2em;
+      margin-bottom: 0.8em;
+      color: #c4b5fd;
+      font-weight: 700;
+      border-bottom: 2px solid rgba(167, 139, 250, 0.3);
+      padding-bottom: 0.3em;
+    }
+
+    h3 {
+      font-size: 1.3em;
+      margin-top: 1.8em;
+      margin-bottom: 0.8em;
+      color: #c4b5fd;
+      font-weight: 600;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2em;
+      margin: 2em 0 1.5em;
+    }
+
+    .social-item {
+      background: rgba(124, 58, 237, 0.15);
+      padding: 1.2em 1.5em;
+      border-radius: 16px;
+      border-left: 5px solid #a78bfa;
+      backdrop-filter: blur(4px);
+      transition: transform 0.2s ease, background 0.3s;
+    }
+
+    .social-item:hover {
+      background: rgba(124, 58, 237, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .social-link {
+      font-size: 1.1em;
+      display: inline-block;
+      margin-top: 0.3em;
+      word-break: break-all;
+    }
+
+    a {
+      color: #c4b5fd;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s, text-shadow 0.2s;
+      border-bottom: 1px dotted transparent;
+    }
+
+    a:hover {
+      color: #e9d5ff;
+      text-decoration: none;
+      border-bottom: 1px dotted #c4b5fd;
+      text-shadow: 0 0 6px rgba(196, 181, 253, 0.5);
+    }
+
+    .btn-rules {
+      background: linear-gradient(145deg, #8b5cf6, #7c3aed);
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 14px 32px;
+      font-size: 1.15em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin: 20px 0 10px;
+    }
+
+    .btn-rules:hover {
+      background: linear-gradient(145deg, #a78bfa, #8b5cf6);
+      transform: scale(1.02);
+      box-shadow: 0 10px 24px rgba(167, 139, 250, 0.5);
+    }
+
+    .btn-rules i {
+      font-size: 1.3em;
+    }
+
+    .card-highlight {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 18px;
+      padding: 20px 24px;
+      margin: 25px 0;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(167, 139, 250, 0.25);
+    }
+
+    ul {
+      padding-left: 1.6em;
+      margin: 1em 0;
+      list-style-type: '✦ ';
+    }
+
+    ul li {
+      margin-bottom: 0.8em;
+      padding-left: 0.4em;
+    }
 
     footer {
-      font-family: 'Inter', sans-serif; margin-top: 40px; font-size: 0.9em; color: #9ca3af;
-      text-align: center; user-select: none; letter-spacing: 0.02em; position: relative; z-index: 10;
+      margin-top: 50px;
+      font-size: 0.95em;
+      color: #9ca3af;
+      text-align: center;
+      border-top: 1px dashed rgba(167, 139, 250, 0.3);
+      padding-top: 24px;
     }
 
-    a { color: #a78bfa; text-decoration: none; animation: pulseGlow 4s ease-in-out infinite; transition: color 0.3s ease; }
-    a:hover, a:focus { text-decoration: underline; color: #d8b4fe; outline: none; }
-    button {
-      background-color: #7c3aed; color: white; border: none; border-radius: 6px; padding: 12px 24px;
-      font-size: 1.1em; font-weight: 700; cursor: pointer; transition: background-color 0.3s ease;
-      user-select: none; margin: 20px auto; display: block; width: fit-content; outline-offset: 2px;
-      animation: pulseGlow 4s ease-in-out infinite;
+    /* Иконки в разделах */
+    .section-icon {
+      margin-right: 8px;
+      opacity: 0.9;
     }
-    button:hover, button:focus { background-color: #a78bfa; outline: none; }
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 0 rgba(167,139,250,0); }
-      50% { box-shadow: 0 0 8px rgba(167,139,250,0.6); }
+
+    @media (max-width: 600px) {
+      main {
+        padding: 20px 20px;
+      }
+      h1 {
+        font-size: 2.2em;
+      }
+      .btn-rules {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -121,61 +310,73 @@
   </div>
 
   <main id="main-content" tabindex="-1">
-    <h1>Авис</h1>
+    <h1>✨ Авис ✨</h1>
 
-    <p>Всем привет и добро пожаловать! 😌</p>
-    <p>Я Авис, ну или Юля, как вам удобнее. Делаю видео по Геншину и не только, веду рубрику "<strong>Кручу только Оружейный баннер</strong>" и стримлю 🖤</p>
+    <p>Привет-привет! Рада видеть тебя здесь 💜</p>
+    <p>Я <strong>Авис</strong> (или просто Юля) — снимаю видео по <strong>Genshin Impact</strong>, веду рубрику «<strong>Кручу только Оружейный баннер</strong>», стримлю и обожаю нашу уютную банду.</p>
 
-    <h3>Мои соцсети</h3>
+    <!-- Кнопка ПРАВИЛА теперь в самом начале -->
+    <div style="display: flex; justify-content: center;">
+      <button class="btn-rules" onclick="window.location.href='rules.html'">
+        <span style="font-size:1.3em;">📋</span> Правила рубрик и чата
+      </button>
+    </div>
+
+    <h2>🌐 Мои соцсети</h2>
     <div class="social-grid">
       <div class="social-item">
-        <span>📱 <strong>Ютуб</strong></span>
+        <span>▶️ <strong>YouTube</strong></span>
         <a href="https://youtube.com/@avis_lia" class="social-link" target="_blank">youtube.com/@avis_lia</a>
       </div>
       <div class="social-item">
-        <span>📱 <strong>Тик ток</strong></span>
+        <span>🎵 <strong>TikTok</strong></span>
         <a href="https://www.tiktok.com/@avis_lia" class="social-link" target="_blank">tiktok.com/@avis_lia</a>
       </div>
       <div class="social-item">
-        <span>📱 <strong>Твич</strong></span>
+        <span>🎮 <strong>Twitch</strong></span>
         <a href="https://www.twitch.tv/angel_avis" class="social-link" target="_blank">twitch.tv/angel_avis</a>
       </div>
       <div class="social-item">
-        <span>📱 <strong>Бусти</strong></span>
+        <span>💜 <strong>Boosty</strong></span>
         <a href="https://boosty.to/avis_lia" class="social-link" target="_blank">boosty.to/avis_lia</a>
       </div>
     </div>
 
-    <p><strong>Лайф канал 🖤</strong> <a href="https://t.me/avis_irl" target="_blank">t.me/avis_irl</a></p>
+    <p><strong>📢 Лайф-канал в Telegram:</strong> <a href="https://t.me/avis_irl" target="_blank">t.me/avis_irl</a> — залетай, тут душевно ✨</p>
 
-    <h3>Поучаствуйся в Пандоре</h3>
-    <ul>
-      <li>❗️ <strong>Рубрика #наоценку</strong> — можно показать сборку своего персонажа, <a href="rules.html#naocenku" target="_blank">правила тут</a></li>
-      <li>❗️ <strong>#артнаоценку</strong> — рубрика, где можно похвастаться крутым артефактом, <a href="rules.html#artnaocenku" target="_blank">правила тут</a></li>
-      <li>❓ <strong>Очередь на рубрики</strong> — <a href="https://t.me/queue_link" target="_blank">тут</a></li>
-    </ul>
+    <div class="card-highlight">
+      <h3 style="margin-top: 0;">🎭 Участвуй в «Пандоре»</h3>
+      <ul>
+        <li><strong>#наоценку</strong> — покажи билд персонажа. <a href="rules.html#naocenku" target="_blank">Правила тут</a></li>
+        <li><strong>#артнаоценку</strong> — хвастайся крутым артефактом. <a href="rules.html#artnaocenku" target="_blank">Правила тут</a></li>
+        <li><strong>📋 Очередь на рубрики</strong> — <a href="https://t.me/queue_link" target="_blank">сюда</a></li>
+      </ul>
+    </div>
 
-    <h3>Карточки персонажей</h3>
-    <p><strong>😀 Геншин:</strong><br>
-    Боты: <a href="https://t.me/Paimon_Bot" target="_blank">@Paimon_Bot</a> <a href="https://t.me/GDCARD_bot" target="_blank">@GDCARD_bot</a><br>
-    Сайты: <a href="https://enka.network/" target="_blank">enka.network</a> <a href="https://akasha.cv/" target="_blank">akasha.cv</a></p>
+    <h2>🃏 Карточки персонажей</h2>
+    <p><strong>🌟 Genshin Impact:</strong><br>
+    Боты: <a href="https://t.me/Paimon_Bot" target="_blank">@Paimon_Bot</a>, <a href="https://t.me/GDCARD_bot" target="_blank">@GDCARD_bot</a><br>
+    Сайты: <a href="https://enka.network/" target="_blank">enka.network</a>, <a href="https://akasha.cv/" target="_blank">akasha.cv</a></p>
 
-    <p><strong>🐰 ХСР:</strong><br>
+    <p><strong>🐇 Honkai: Star Rail:</strong><br>
     Бот: <a href="https://t.me/GDCARD_bot" target="_blank">@GDCARD_bot</a><br>
-    <a href="https://seeleland.com/" target="_blank">seeleland.com</a> <a href="https://enka.network/?hsr" target="_blank">enka.network/?hsr</a></p>
+    <a href="https://seeleland.com/" target="_blank">seeleland.com</a>, <a href="https://enka.network/?hsr" target="_blank">enka.network/?hsr</a></p>
 
-    <p><strong>💧 Вува:</strong> <a href="https://wuwaflex.com/" target="_blank">wuwaflex.com</a><br>
-    <em>(Но предварительно проверяйте, могут быть неточности, за инфу спасибо @NravOf)</em></p>
+    <p><strong>💧 Wuthering Waves:</strong> <a href="https://wuwaflex.com/" target="_blank">wuwaflex.com</a><br>
+    <em>(Данные могут быть не точны — спасибо @NravOf за инфу)</em></p>
 
-    <p><strong>💕 Очередь на рубрики — <a href="https://t.me/queue_link" target="_blank">тыкать сюда</a></strong></p>
+    <p style="margin-top: 1.5em;"><strong>⏳ Очередь на рубрики:</strong> <a href="https://t.me/queue_link" target="_blank">тыкай сюда</a></p>
 
-    <button onclick="window.location.href='rules.html'">
-      Посмотреть правила рубрик
-    </button>
+    <!-- Дополнительная кнопка внизу (на всякий случай) -->
+    <div style="display: flex; justify-content: center; margin: 30px 0 10px;">
+      <button class="btn-rules" onclick="window.location.href='rules.html'">
+        <span>📜</span> Правила рубрик
+      </button>
+    </div>
 
     <footer>
-      <p>Сайт создан для тех, кто хочет узнать обо мне больше и участвовать в рубриках.</p>
-      <p>Вопросы в личку: <strong>@avis_lia</strong></p>
+      <p>Сайт для тех, кто хочет узнать обо мне больше и участвовать в движухах 💫</p>
+      <p>Вопросы и общение: <strong>@avis_lia</strong></p>
     </footer>
   </main>
 
@@ -188,12 +389,12 @@
       function createParticle() {
         const p = document.createElement('div');
         p.classList.add('particle');
-        const size = 4 + Math.random() * 6;
+        const size = 5 + Math.random() * 7;
         p.style.width = `${size}px`;
         p.style.height = `${size}px`;
         p.style.left = `${Math.random() * 100}vw`;
         p.style.bottom = `${Math.random() * 40}vh`;
-        p.style.animationDuration = `${2 + Math.random() * 3}s`;
+        p.style.animationDuration = `${2.5 + Math.random() * 3}s`;
         p.style.animationDelay = `${Math.random() * 5}s`;
         container.appendChild(p);
       }
