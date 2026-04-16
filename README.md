@@ -6,9 +6,10 @@
   <title>Правила чата</title>
   <meta name="description" content="Правила чата: соблюдение, модерация, наказания, политика." />
   <meta name="keywords" content="чат, правила, модерация, наказания, политика" />
-  //fonts.googleapis.com" crossorigin />
-  //fonts.gstatic.com" crossorigin />
-  //fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Slab:wght@700&display=swap"
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Slab:wght@700&display=swap"
     rel="stylesheet" />
   <style>
     /* === Общие стили === */
@@ -83,17 +84,17 @@
     }
 
     .cloud1 {
-      background-image: url("image/svg+xml,%3csvg width='280' height='150' viewBox='0 0 280 150' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cellipse cx='140' cy='75' rx='120' ry='60' fill='%236b7a8c' fill-opacity='0.2'/%3e%3c/svg%3e");
+      background-image: url("data:image/svg+xml,%3csvg width='280' height='150' viewBox='0 0 280 150' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cellipse cx='140' cy='75' rx='120' ry='60' fill='%236b7a8c' fill-opacity='0.2'/%3e%3c/svg%3e");
       border-radius: 120px / 60px;
     }
 
     .cloud2 {
-      background-image: url("image/svg+xml,%3csvg width='180' height='100' viewBox='0 0 180 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='60' cy='50' r='40' fill='%236b7a8c' fill-opacity='0.15'/%3e%3ccircle cx='110' cy='50' r='50' fill='%236b7a8c' fill-opacity='0.15'/%3e%3c/svg%3e");
+      background-image: url("data:image/svg+xml,%3csvg width='180' height='100' viewBox='0 0 180 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='60' cy='50' r='40' fill='%236b7a8c' fill-opacity='0.15'/%3e%3ccircle cx='110' cy='50' r='50' fill='%236b7a8c' fill-opacity='0.15'/%3e%3c/svg%3e");
       border-radius: 100px / 50px;
     }
 
     .cloud3 {
-      background-image: url("image/svg+xml,%3csvg width='100' height='60' viewBox='0 0 100 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='40' cy='30' r='20' fill='%236b7a8c' fill-opacity='0.15'/%3e%3ccircle cx='70' cy='30' r='30' fill='%236b7a8c' fill-opacity='0.15'/%3e%3c/svg%3e");
+      background-image: url("data:image/svg+xml,%3csvg width='100' height='60' viewBox='0 0 100 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='40' cy='30' r='20' fill='%236b7a8c' fill-opacity='0.15'/%3e%3ccircle cx='70' cy='30' r='30' fill='%236b7a8c' fill-opacity='0.15'/%3e%3c/svg%3e");
       border-radius: 60px / 30px;
     }
 
@@ -494,199 +495,196 @@
     }
 
     /* === Блок навигации (без анимаций) === */
-   
-/* === Блок навигации (без анимаций) === */
-nav {
-  background: transparent;
-  padding: 10px 20px;
-  border-radius: 12px;
-  max-width: 900px;
-  margin: 0 auto 40px;
-  user-select: none;
-  color: #cbd5e1;
-  box-shadow: 0 0 12px rgb(124 58 237 / 0.4);
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  font-size: 1.1em;
-  text-align: center;
-  position: relative;
-  z-index: 10;
-}
+    nav {
+      background: transparent;
+      padding: 10px 20px;
+      border-radius: 12px;
+      max-width: 900px;
+      margin: 0 auto 40px;
+      user-select: none;
+      color: #cbd5e1;
+      box-shadow: 0 0 12px rgb(124 58 237 / 0.4);
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1em;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
 
-nav .toc-header {
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-  user-select: none;
-  color: #a78bfa;
-  font-weight: 700;
-  font-size: 1.3em;
-  outline-offset: 2px;
-  transition: color 0.3s ease;
-}
+    nav .toc-header {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      user-select: none;
+      color: #a78bfa;
+      font-weight: 700;
+      font-size: 1.3em;
+      outline-offset: 2px;
+      transition: color 0.3s ease;
+    }
 
-nav .toc-header:hover,
-nav .toc-header:focus {
-  color: #d8b4fe;
-  outline: none;
-}
+    nav .toc-header:hover,
+    nav .toc-header:focus {
+      color: #d8b4fe;
+      outline: none;
+    }
 
-nav .toc-header svg {
-  stroke: currentColor;
-  stroke-width: 2.5;
-  width: 30px;
-  height: 30px;
-  transition: stroke 0.3s ease;
-  user-select: none;
-}
+    nav .toc-header svg {
+      stroke: currentColor;
+      stroke-width: 2.5;
+      width: 30px;
+      height: 30px;
+      transition: stroke 0.3s ease;
+      user-select: none;
+    }
 
-/* Список навигации без анимаций и переходов, пункты в строку по центру */
-nav ul.toc-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-height: none !important;
-  overflow: visible !important;
-  user-select: text;
-  opacity: 1 !important;
-  transform: none !important;
-  pointer-events: auto !important;
-  transition: none !important;
-  display: block !important;
+    /* Список навигации без анимаций и переходов, пункты в строку по центру */
+    nav ul.toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: none !important;
+      overflow: visible !important;
+      user-select: text;
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto !important;
+      transition: none !important;
+      display: block !important;
 
-  text-align: center;
-}
+      text-align: center;
+    }
 
-nav ul.toc-list.collapsed {
-  display: none !important;
-  max-height: 0 !important;
-  overflow: hidden !important;
-  opacity: 0 !important;
-  transform: none !important;
-  pointer-events: none !important;
-  transition: none !important;
-}
+    nav ul.toc-list.collapsed {
+      display: none !important;
+      max-height: 0 !important;
+      overflow: hidden !important;
+      opacity: 0 !important;
+      transform: none !important;
+      pointer-events: none !important;
+      transition: none !important;
+    }
 
-nav ul.toc-list li {
-  display: inline-block;
-  margin: 0 12px;
-  opacity: 1 !important;
-  transform: none !important;
-  animation: none !important;
-  animation-fill-mode: none !important;
-  animation-name: none !important;
-  animation-duration: 0s !important;
-  animation-timing-function: none !important;
-  animation-delay: 0s !important;
-  border-top: 1.5px solid transparent;
-  border-bottom: 1.5px solid transparent;
-  padding: 4px 0;
-}
+    nav ul.toc-list li {
+      display: inline-block;
+      margin: 0 12px;
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      animation-fill-mode: none !important;
+      animation-name: none !important;
+      animation-duration: 0s !important;
+      animation-timing-function: none !important;
+      animation-delay: 0s !important;
+      border-top: 1.5px solid transparent;
+      border-bottom: 1.5px solid transparent;
+      padding: 4px 0;
+    }
 
-nav ul.toc-list li a {
-  color: #cbd5e1;
-  text-decoration: none;
-  display: inline-block;
-  width: fit-content;
-  transition: color 0.3s ease, border-color 0.3s ease;
-}
+    nav ul.toc-list li a {
+      color: #cbd5e1;
+      text-decoration: none;
+      display: inline-block;
+      width: fit-content;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
 
-nav ul.toc-list li a:hover,
-nav ul.toc-list li a:focus,
-nav ul.toc-list li a.active {
-  border-top-color: #a78bfa;
-  border-bottom-color: #a78bfa;
-  outline: none;
-  color: #a78bfa;
-}
+    nav ul.toc-list li a:hover,
+    nav ul.toc-list li a:focus,
+    nav ul.toc-list li a.active {
+      border-top-color: #a78bfa;
+      border-bottom-color: #a78bfa;
+      outline: none;
+      color: #a78bfa;
+    }
 
-/* === Анимация кнопок копирования === */
-.copy-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2em;
-  transition: transform 0.25s ease, color 0.3s ease;
-  color: #a78bfa;
-  user-select: none;
-  padding: 0 6px;
-  border-radius: 4px;
-  outline-offset: 2px;
-  box-shadow: 0 0 4px transparent;
-}
+    /* === Анимация кнопок копирования === */
+    .copy-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      transition: transform 0.25s ease, color 0.3s ease;
+      color: #a78bfa;
+      user-select: none;
+      padding: 0 6px;
+      border-radius: 4px;
+      outline-offset: 2px;
+      box-shadow: 0 0 4px transparent;
+    }
 
-.copy-btn:hover,
-.copy-btn:focus {
-  color: #d8b4fe;
-  transform: translateY(-2px) scale(1.1);
-  box-shadow:
-    0 0 6px #a78bfa,
-    0 0 10px #d8b4fe;
-  outline: none;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
+    .copy-btn:hover,
+    .copy-btn:focus {
+      color: #d8b4fe;
+      transform: translateY(-2px) scale(1.1);
+      box-shadow:
+        0 0 6px #a78bfa,
+        0 0 10px #d8b4fe;
+      outline: none;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-.copy-btn:active {
-  transform: translateY(0) scale(0.95);
-  box-shadow: none;
-}
+    .copy-btn:active {
+      transform: translateY(0) scale(0.95);
+      box-shadow: none;
+    }
 
-/* === Пульсирующее свечение для ссылок и кнопок === */
-@keyframes pulseGlow {
-  0%,
-  100% {
-    box-shadow: 0 0 0 rgba(167, 139, 250, 0);
-  }
+    /* === Пульсирующее свечение для ссылок и кнопок === */
+    @keyframes pulseGlow {
+      0%,
+      100% {
+        box-shadow: 0 0 0 rgba(167, 139, 250, 0);
+      }
 
-  50% {
-    box-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
-  }
-}
+      50% {
+        box-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
+      }
+    }
 
-/* === Анимация частиц-звёздочек внизу === */
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle at center, #a78bfa, transparent);
-  opacity: 0.8;
-  animation-name: twinkle;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
+    /* === Анимация частиц-звёздочек внизу === */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #a78bfa, transparent);
+      opacity: 0.8;
+      animation-name: twinkle;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
 
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
+    @keyframes twinkle {
+      0%,
+      100% {
+        opacity: 0.6;
+        transform: scale(1);
+      }
 
-  50% {
-    opacity: 1;
-    transform: scale(1.3);
-  }
-}
+      50% {
+        opacity: 1;
+        transform: scale(1.3);
+      }
+    }
 
-/* === Плавное появление секций при скролле === */
-section,
-p,
-ul {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
+    /* === Плавное появление секций при скролле === */
+    section,
+    p,
+    ul {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
 
-section.visible,
-p.visible,
-ul.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-</style>
-
+    section.visible,
+    p.visible,
+    ul.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 
 <body>
@@ -799,14 +797,14 @@ ul.visible {
       <p><strong>Пояснение:</strong> Нарушает правила приличия и закон.</p>
       <p><strong>Пример:</strong> откровенные фото, видео или ссылки.</p>
 
-      <h3>4. Публикация треш-контента (стикеры/видео/гиф с расчленenкой и тому подобное) <button class="copy-btn"
+      <h3>4. Публикация треш-контента (стикеры/видео/гиф с расчлененкой и тому подобное) <button class="copy-btn"
           title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Бан</p>
       <p><strong>Пояснение:</strong> Шокирующие материалы могут травмировать участников.</p>
       <p><strong>Пример:</strong> видео с насилием или жестокостью.</p>
 
-      <h3>5. Поднятие тем, нарушающих законы РФ (экстремизм, терроризм, пропаганда наркотиков, оскорбление чувств верующих и др.) <button class="copy-btn"
-          title="Скопировать правило">📋</button></h3>
+      <h3>5. Поднятие тем, нарушающих законы РФ (экстремизм, терроризм, пропаганда наркотиков, оскорбление чувств верующих
+        и др.) <button class="copy-btn" title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Бан</p>
       <p><strong>Пояснение:</strong> Такие темы запрещены законом и чатом.</p>
       <p><strong>Пример:</strong> призывы к насилию, обсуждение запрещённых веществ.</p>
@@ -814,20 +812,23 @@ ul.visible {
       <h3>6. Спам / флуд (часто повторяющиеся сообщения, сообщения без смысла) <button class="copy-btn"
           title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Мут</p>
-      <p><strong>Пояснение
       <p><strong>Пояснение:</strong> Чтобы чат был удобен для всех, не стоит засорять его бессмысленными сообщениями.</p>
       <p><strong>Пример:</strong> повторять одну и ту же фразу много раз подряд.</p>
 
-      <h3>7. Публичное осуждение действий администрации / провокация администрации типа «ну давай бань меня» <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>7. Публичное осуждение действий администрации / провокация администрации типа «ну давай бань меня» <button
+          class="copy-btn" title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Предупреждение или мут</p>
-      <p><strong>Пояснение:</strong> Если есть вопросы к администрации — лучше написать в личку, а не провоцировать конфликт в общем чате.</p>
+      <p><strong>Пояснение:</strong> Если есть вопросы к администрации — лучше написать в личку, а не провоцировать конфликт
+        в общем чате.</p>
 
-      <h3>8. Любая дискриминация по расовому/национальному/половому/религиозному признаку <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>8. Любая дискриминация по расовому/национальному/половому/религиозному признаку <button class="copy-btn"
+          title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Бан</p>
       <p><strong>Пояснение:</strong> Мы за равенство и уважение ко всем.</p>
       <p><strong>Пример:</strong> оскорбления по национальному признаку недопустимы.</p>
 
-      <h3>9. Просьбы перейти по ссылкам/зарегистрироваться на вредоносном сайте <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <h3>9. Просьбы перейти по ссылкам/зарегистрироваться на вредоносном сайте <button class="copy-btn"
+          title="Скопировать правило">📋</button></h3>
       <p><strong>Наказание:</strong> Бан</p>
       <p><strong>Пояснение:</strong> Безопасность участников — наш приоритет.</p>
       <p><strong>Пример:</strong> ссылки на мошеннические сайты.</p>
@@ -836,19 +837,28 @@ ul.visible {
     <section id="dopolneniya-po-moderatoram">
       <h2>Важные дополнения по работе модераторов и контролю качества их действий</h2>
 
-      <h3>10. Модераторы обязаны действовать в соответствии с правилами чата и не использовать свои полномочия в личных интересах <button class="copy-btn" title="Скопировать правило">📋</button></h3>
-      <p><strong>Пояснение:</strong> Если заметили нарушение или злоупотребление полномочиями (например, необоснованно мутит или банит, игнорирует правила), обратитесь к высшим администраторам или создателю чата (@lia_os). Жалобы рассматриваются, и мы защищаем от несправедливого обращения.</p>
+      <h3>10. Модераторы обязаны действовать в соответствии с правилами чата и не использовать свои полномочия в личных
+        интересах <button class="copy-btn" title="Скопировать правило">📋</button></h3>
+      <p><strong>Пояснение:</strong> Если заметили нарушение или злоупотребление полномочиями (например, необоснованно мутит
+        или банит, игнорирует правила), обратитесь к высшим администраторам или создателю чата (@lia_os). Жалобы
+        рассматриваются, и мы защищаем от несправедливого обращения.</p>
 
-      <h3>11. Перед применением наказания модератор должен дать словесное предупреждение участнику <button class="copy-btn" title="Скопировать правило">📋</button></h3>
-      <p><strong>Пояснение:</strong> Если поведение начинает нарушать правила или мешать комфорту, модератор предупреждает: «Пожалуйста, прекратите, иначе последуют меры». Если предупреждение игнорируется — применяется наказание (мут, бан и т.п.). Это помогает избежать конфликтов и даёт шанс исправиться.</p>
+      <h3>11. Перед применением наказания модератор должен дать словесное предупреждение участнику <button class="copy-btn"
+          title="Скопировать правило">📋</button></h3>
+      <p><strong>Пояснение:</strong> Если поведение начинает нарушать правила или мешать комфорту, модератор предупреждает:
+        «Пожалуйста, прекратите, иначе последуют меры». Если предупреждение игнорируется — применяется наказание (мут, бан
+        и т.п.). Это помогает избежать конфликтов и даёт шанс исправиться.</p>
     </section>
 
     <section id="nakazaniya">
       <h2>Наказания</h2>
       <ul>
-        <li><strong>Предупреждение</strong> — первое и мягкое наказание. Сообщаем, что поведение не соответствует правилам с объяснением.</li>
-        <li><strong>Мут</strong> — временное ограничение возможности писать (несколько минут или часов). Используется при повторных нарушениях или серьёзных проступках. Перед мутом обязательно словесное предупреждение.</li>
-        <li><strong>Бан</strong> — удаление из чата с запретом на повторный вход. За серьёзные или неоднократные нарушения.</li>
+        <li><strong>Предупреждение</strong> — первое и мягкое наказание. Сообщаем, что поведение не соответствует правилам с
+          объяснением.</li>
+        <li><strong>Мут</strong> — временное ограничение возможности писать (несколько минут или часов). Используется при
+          повторных нарушениях или серьёзных проступках. Перед мутом обязательно словесное предупреждение.</li>
+        <li><strong>Бан</strong> — удаление из чата с запретом на повторный вход. За серьёзные или неоднократные нарушения.
+        </li>
       </ul>
     </section>
 
@@ -1122,6 +1132,6 @@ ul.visible {
       }
     })();
   </script>
-
 </body>
+
 </html>
