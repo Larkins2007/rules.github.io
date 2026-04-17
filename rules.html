@@ -5,19 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>Правила чата · Авис</title>
   <meta name="description" content="Правила чата и рубрик Авис: соблюдение, модерация, наказания, политика." />
+  <!-- Шрифты -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-track { background: #0b1a2d; }
-    ::-webkit-scrollbar-thumb { background: #4a90e2; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: #76e4f7; }
+    /* ----- БАЗОВЫЕ СТИЛИ ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b1a2d;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #7c3aed;
+      border-radius: 10px;
+      border: 2px solid #0b1a2d;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a78bfa;
+    }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       margin: 0;
       line-height: 1.7;
       color: #e2e8f0;
@@ -28,135 +48,351 @@
       align-items: flex-start;
       background: #0a1424;
       background-image: 
-        radial-gradient(circle at 20% 40%, rgba(74, 144, 226, 0.15) 0%, transparent 30%),
-        radial-gradient(circle at 80% 80%, rgba(118, 228, 247, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 20% 40%, rgba(124, 58, 237, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(167, 139, 250, 0.1) 0%, transparent 40%),
         repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 6px);
       position: relative;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
+    /* ----- ФОНОВЫЕ ИКОНКИ ----- */
     #bg-icons {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
     }
+
     .floating-icon {
       position: absolute;
-      width: 70px; height: 70px;
+      width: 70px;
+      height: 70px;
       opacity: 0.25;
-      filter: drop-shadow(0 0 15px #76e4f7);
+      filter: drop-shadow(0 0 15px #a855f7);
       animation: floatIcon 30s infinite alternate;
       background-size: contain;
       background-repeat: no-repeat;
     }
+
     @keyframes floatIcon {
       0% { transform: translate(0,0) rotate(0deg); }
       100% { transform: translate(30px, 40px) rotate(15deg); }
     }
-    .icon-1 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239144ff'%3E%3Cpath d='M11.57 5.93h1.71v5.14h-1.71V5.93zm-4.28 0h1.71v5.14H7.29V5.93zm8.57 0h1.71v5.14h-1.71V5.93zM4.14 2L2 6.29v12.85h5.14V22l3.43-2.86h2.57L19.71 16V2H4.14zm14.14 11.14l-3.43 3.43h-2.57l-2.57 2.57v-2.57H5.86V3.43h12.42v9.71z'/%3E%3C/svg%3E"); top: 15%; left: 5%; }
-    .icon-2 { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff4d4d'%3E%3Cpath d='M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.906 3.434.069 6.546.058 12 .069 17.454.906 20.566 4.385 20.816c3.599.245 11.626.246 15.23 0 3.479-.25 4.316-3.362 4.327-8.816-.011-5.454-.848-8.566-4.327-8.816zM9 16V8l8 4-8 4z'/%3E%3C/svg%3E"); top: 70%; left: 85%; }
-    .pearl { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2376e4f7'%3E%3Ccircle cx='12' cy='12' r='10' fill='%2376e4f7' opacity='0.8'/%3E%3Cpath d='M12 4c-1 2-2 3-3 5s-1 4 0 6 2 3 3 3 3-1 3-3-1-4 0-6 2-3 3-5' fill='%23ffffff' opacity='0.5'/%3E%3C/svg%3E"); width: 50px; height: 50px; top: 50%; left: 25%; }
-    .trident { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234a90e2'%3E%3Cpath d='M12 2L8 8h2v4H6l-2 4 2 4h4v-4H8l2-6h4l2 6h-2v4h4l2-4-2-4h-4V8h2z' fill='%234a90e2' opacity='0.9'/%3E%3C/svg%3E"); width: 60px; height: 60px; top: 30%; left: 80%; }
 
+    .icon-1 {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239144ff'%3E%3Cpath d='M11.57 5.93h1.71v5.14h-1.71V5.93zm-4.28 0h1.71v5.14H7.29V5.93zm8.57 0h1.71v5.14h-1.71V5.93zM4.14 2L2 6.29v12.85h5.14V22l3.43-2.86h2.57L19.71 16V2H4.14zm14.14 11.14l-3.43 3.43h-2.57l-2.57 2.57v-2.57H5.86V3.43h12.42v9.71z'/%3E%3C/svg%3E");
+      top: 15%;
+      left: 5%;
+    }
+    .icon-2 {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff4d4d'%3E%3Cpath d='M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.906 3.434.069 6.546.058 12 .069 17.454.906 20.566 4.385 20.816c3.599.245 11.626.246 15.23 0 3.479-.25 4.316-3.362 4.327-8.816-.011-5.454-.848-8.566-4.327-8.816zM9 16V8l8 4-8 4z'/%3E%3C/svg%3E");
+      top: 70%;
+      left: 85%;
+    }
+    .icon-3 {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M17.07 10.17c1.15.83 2.53 1.3 4 1.33v-2.54c-.5.03-1 .03-1.5 0v2.54c-1.47-.03-2.85-.5-4-1.33v6.09c0 3.18-2.58 5.76-5.76 5.76-1.32 0-2.54-.45-3.51-1.2 1.05.9 2.43 1.45 3.93 1.45 3.18 0 5.76-2.58 5.76-5.76v-6.34h1.08zm-4.34-2.41c-.73-.8-1.17-1.86-1.17-3.01h-1.33c.33 1.21 1.18 2.21 2.5 3.01z'/%3E%3C/svg%3E");
+      top: 50%;
+      left: 30%;
+    }
+
+    /* ----- ПРОГРЕСС-БАР ПРОКРУТКИ ----- */
     #progress-bar {
       position: fixed;
-      top: 0; left: 0; width: 0%; height: 4px;
-      background: linear-gradient(90deg, #76e4f7, #4a90e2);
-      box-shadow: 0 0 15px #76e4f7;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(90deg, #a78bfa, #ff9a9e);
+      box-shadow: 0 0 15px #a78bfa;
       z-index: 200;
+      transition: width 0.1s;
     }
 
+    /* ----- ПОИСКОВАЯ СТРОКА (ФИКСИРОВАННАЯ) ----- */
     #search-container {
-      position: fixed; top: 8px; left: 50%; transform: translateX(-50%);
-      max-width: 700px; width: calc(100% - 32px); z-index: 150;
-      display: flex; align-items: center;
-      background: rgba(11, 26, 45, 0.85); backdrop-filter: blur(12px);
-      border-radius: 60px; padding: 4px 4px 4px 20px;
-      border: 1px solid #4a90e2; box-shadow: 0 8px 20px #0000004d;
+      position: fixed;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 700px;
+      width: calc(100% - 32px);
+      z-index: 150;
+      display: flex;
+      align-items: center;
+      background: rgba(11, 26, 45, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 60px;
+      padding: 4px 4px 4px 20px;
+      border: 1px solid #7c3aed;
+      box-shadow: 0 8px 20px #0000004d;
     }
+
     #search-input {
-      flex: 1; background: transparent; border: none; padding: 14px 0;
-      font-size: 1.1rem; color: #f1f5f9; outline: none;
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 14px 0;
+      font-size: 1.1rem;
+      color: #f1f5f9;
+      outline: none;
     }
-    #search-input::placeholder { color: #9ca3af; }
+
+    #search-input::placeholder {
+      color: #9ca3af;
+    }
+
     #clear-search {
-      background: #4a90e2; border: none; color: white; width: 48px; height: 48px;
-      border-radius: 50%; font-size: 1.8rem; cursor: pointer;
+      background: #7c3aed;
+      border: none;
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    #clear-search:hover { background: #76e4f7; }
 
+    #clear-search:hover {
+      background: #a78bfa;
+    }
+
+    /* ----- ОСНОВНОЙ КОНТЕЙНЕР ----- */
     main {
-      background: rgba(11, 26, 45, 0.7); backdrop-filter: blur(16px);
-      border-radius: 36px; box-shadow: 0 20px 50px #00000080, 0 0 0 1px #76e4f7;
-      max-width: 960px; width: 100%; padding: 36px 44px; margin: 30px auto;
-      color: #f0f4ff; position: relative; z-index: 20;
+      background: rgba(11, 26, 45, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 36px;
+      box-shadow: 0 20px 50px #00000080, 0 0 0 1px #a78bfa33;
+      max-width: 960px;
+      width: 100%;
+      padding: 36px 44px;
+      margin: 30px auto;
+      color: #f0f4ff;
+      position: relative;
+      z-index: 20;
     }
 
+    /* ----- ТИПОГРАФИКА ----- */
     h1 {
-      font-family: 'Roboto Slab', serif; font-size: 3rem; text-align: center;
+      font-family: 'Roboto Slab', serif;
+      font-size: 3rem;
+      text-align: center;
       background: linear-gradient(135deg, #ffb8b8, #ffd6a5, #c7ffb6, #b6e3ff, #d7b6ff);
-      background-size: 300% 300%; -webkit-background-clip: text; background-clip: text;
-      color: transparent; animation: gradientFlow 8s infinite;
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientFlow 8s infinite;
     }
+
     @keyframes gradientFlow {
-      0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    h2 { font-size: 2em; margin: 2em 0 0.8em; color: #76e4f7; border-bottom: 3px solid #4a90e2; display: inline-block; }
-    h3 { font-size: 1.4em; margin: 1.5em 0 0.5em; color: #e9d5ff; border-left: 6px solid #76e4f7; padding-left: 20px; }
-    section { background: #1e293b40; border-radius: 24px; padding: 24px 30px; margin: 30px 0; backdrop-filter: blur(4px); border: 1px solid #4a90e2; }
-    a { color: #76e4f7; border-bottom: 1px dashed; }
-    a:hover { color: white; }
+    h2 {
+      font-size: 2em;
+      margin: 2em 0 0.8em;
+      color: #d8b4fe;
+      border-bottom: 3px solid #a78bfa;
+      display: inline-block;
+      padding-bottom: 0.3em;
+    }
 
-    nav { background: #4a90e21a; border-radius: 40px; padding: 16px 20px; margin: 20px 0; }
-    .toc-header { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.5rem; font-weight: 700; color: #76e4f7; cursor: pointer; }
-    .toc-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px 30px; list-style: none; padding: 16px 0 0; }
-    .toc-list.collapsed { display: none; }
-    .toc-list a { background: #ffffff08; padding: 8px 20px; border-radius: 40px; border: 1px solid #76e4f7; }
+    h3 {
+      font-size: 1.4em;
+      margin: 1.5em 0 0.5em;
+      color: #e9d5ff;
+      border-left: 6px solid #a78bfa;
+      padding-left: 20px;
+    }
 
+    section {
+      background: #1e293b40;
+      border-radius: 24px;
+      padding: 24px 30px;
+      margin: 30px 0;
+      backdrop-filter: blur(4px);
+      border: 1px solid #a78bfa33;
+    }
+
+    a {
+      color: #c4b5fd;
+      border-bottom: 1px dashed;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: white;
+    }
+
+    /* ----- НАВИГАЦИЯ (ОГЛАВЛЕНИЕ) ----- */
+    nav {
+      background: #7c3aed1a;
+      border-radius: 40px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      backdrop-filter: blur(8px);
+    }
+
+    .toc-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #d8b4fe;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toc-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px 30px;
+      list-style: none;
+      padding: 16px 0 0;
+      margin: 0;
+    }
+
+    .toc-list.collapsed {
+      display: none;
+    }
+
+    .toc-list a {
+      background: #ffffff08;
+      padding: 8px 20px;
+      border-radius: 40px;
+      border: 1px solid #a78bfa;
+      font-weight: 600;
+    }
+
+    /* ----- КНОПКА НАВЕРХ ----- */
     #toTopBtn {
-      position: fixed; bottom: 30px; right: 30px; background: #4a90e2; color: white;
-      border: none; border-radius: 60px; width: 55px; height: 55px; font-size: 2rem;
-      cursor: pointer; box-shadow: 0 0 25px #76e4f7; opacity: 0; visibility: hidden;
-      transition: 0.3s; display: flex; align-items: center; justify-content: center; z-index: 300;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #7c3aed;
+      color: white;
+      border: none;
+      border-radius: 60px;
+      width: 55px;
+      height: 55px;
+      font-size: 2rem;
+      cursor: pointer;
+      box-shadow: 0 0 25px #a78bfa;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
     }
-    #toTopBtn.visible { opacity: 1; visibility: visible; }
 
-    mark { background: #4a90e2cc; color: white; padding: 2px 8px; border-radius: 20px; }
+    #toTopBtn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
 
-    .signature { font-family: 'Roboto Slab', serif; font-size: 2em; text-align: center; margin: 30px 0; background: linear-gradient(270deg, #ff9a9e, #a1c4fd, #d4b5ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .guardians { text-align: center; font-size: 1.2em; background: linear-gradient(145deg, #76e4f7, #4a90e2); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 600; margin-top: 10px; }
+    #toTopBtn:hover {
+      background: #a78bfa;
+    }
 
+    /* ----- ПОДСВЕТКА ПОИСКА ----- */
+    mark {
+      background: #7c3aedcc;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    /* ----- ПОДПИСЬ ----- */
+    .signature {
+      font-family: 'Roboto Slab', serif;
+      font-size: 2em;
+      text-align: center;
+      margin: 30px 0 10px;
+      background: linear-gradient(270deg, #ff9a9e, #a1c4fd, #d4b5ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* ----- АДАПТИВ ----- */
     @media (max-width: 600px) {
-      body { padding-top: 80px; }
-      main { padding: 20px 16px; }
-      .toc-list { flex-direction: column; align-items: center; }
+      body {
+        padding-top: 80px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      main {
+        padding: 20px 16px;
+      }
+      h1 {
+        font-size: 2.2rem;
+      }
+      .toc-list {
+        flex-direction: column;
+        align-items: center;
+      }
+      #search-container {
+        padding: 4px 4px 4px 16px;
+      }
+      #search-input {
+        padding: 12px 0;
+      }
+      #clear-search {
+        width: 44px;
+        height: 44px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Прогресс-бар прокрутки -->
   <div id="progress-bar"></div>
+
+  <!-- Фоновые иконки -->
   <div id="bg-icons" aria-hidden="true">
     <div class="floating-icon icon-1"></div>
     <div class="floating-icon icon-2"></div>
-    <div class="floating-icon pearl"></div>
-    <div class="floating-icon trident"></div>
+    <div class="floating-icon icon-3"></div>
   </div>
 
+  <!-- Поисковая строка -->
   <div id="search-container">
-    <input type="text" id="search-input" placeholder="🔍 Поиск по правилам..." autocomplete="off" />
+    <input type="text" id="search-input" placeholder="🔍 Поиск по правилам..." autocomplete="off" spellcheck="false" />
     <button id="clear-search" title="Очистить">✕</button>
   </div>
 
   <main>
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+    <!-- Шапка с возвратом на главную -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
       <h1 style="margin:0;">📜 Правила чата</h1>
-      <a href="index.html" style="font-size:1.2rem; background:#4a90e2; color:white; padding:8px 20px; border-radius:40px; border-bottom:none;">← На главную</a>
+      <a href="index.html" style="font-size:1.2rem; background:#7c3aed33; padding:8px 20px; border-radius:40px; border-bottom: none;">← На главную</a>
     </div>
-    <p style="text-align:center; margin:20px 0;">Каждый участник обязуется соблюдать правила. Спасибо, что вы с нами! 🐚🐉</p>
+    <p style="text-align:center; margin:20px 0 10px;">Каждый участник обязуется соблюдать правила. Спасибо, что вы с нами!</p>
 
+    <!-- Оглавление -->
     <nav>
-      <div class="toc-header" id="toc-toggle" tabindex="0">📑 Быстрая навигация</div>
+      <div class="toc-header" id="toc-toggle" tabindex="0" role="button" aria-expanded="true" aria-controls="toc-list">
+        📑 Быстрая навигация
+      </div>
       <ul class="toc-list" id="toc-list">
         <li><a href="#ne-zhelatelno">⚠️ Не желательно</a></li>
         <li><a href="#zapreshchaetsya">🚫 Запрещается</a></li>
@@ -166,13 +402,14 @@
       </ul>
     </nav>
 
-    <!-- ВОССТАНОВЛЕННЫЙ ПОЛНЫЙ ТЕКСТ ПРАВИЛ -->
+    <!-- Самое важное -->
     <section id="samoe-vazhnoe">
       <h2>💜 Самое важное</h2>
       <p><strong>Каждый участник чата обязан уважать других, соблюдать правила и поддерживать дружелюбную атмосферу.</strong></p>
       <p>Нарушение этого принципа ведёт к предупреждениям и, при повторении — к более строгим мерам вплоть до бана.</p>
     </section>
 
+    <!-- Не желательно -->
     <section id="ne-zhelatelno">
       <h2>⚠️ Не желательно</h2>
       <h3>1. Использование большого количества ненормативной лексики</h3>
@@ -205,6 +442,7 @@
       <p><strong>Пример:</strong> Пересылать скриншоты или сообщения из личных диалогов без разрешения — запрещено.</p>
     </section>
 
+    <!-- Запрещается -->
     <section id="zapreshchaetsya">
       <h2>🚫 Запрещается</h2>
       <h3>1. Обсуждение политики и публикация любого контента, связанного с политикой</h3>
@@ -252,6 +490,7 @@
       <p><strong>Пример:</strong> ссылки на мошеннические сайты.</p>
     </section>
 
+    <!-- Дополнения по модераторам -->
     <section id="dopolneniya-po-moderatoram">
       <h2>🛡️ Важные дополнения по работе модераторов</h2>
       <h3>10. Модераторы обязаны действовать в соответствии с правилами чата и не использовать свои полномочия в личных интересах</h3>
@@ -261,6 +500,7 @@
       <p><strong>Пояснение:</strong> Если поведение начинает нарушать правила или мешать комфорту, модератор предупреждает: «Пожалуйста, прекратите, иначе последуют меры». Если предупреждение игнорируется — применяется наказание (мут, бан и т.п.). Это помогает избежать конфликтов и даёт шанс исправиться.</p>
     </section>
 
+    <!-- Наказания -->
     <section id="nakazaniya">
       <h2>⚖️ Наказания</h2>
       <ul style="list-style-type: '🔸 '; padding-left: 2em;">
@@ -270,6 +510,7 @@
       </ul>
     </section>
 
+    <!-- Политика модераторов -->
     <section id="politika">
       <h2>📋 Политика модераторов</h2>
       <ul style="list-style-type: '✨ '; padding-left: 2em;">
@@ -280,97 +521,164 @@
       </ul>
     </section>
 
-    <p style="text-align:center; margin:40px 0;">💖 Спасибо, что соблюдаете правила и делаете чат приятным для всех!</p>
+    <p style="text-align:center; margin:40px 0 20px;">💖 Спасибо, что соблюдаете правила и делаете чат приятным для всех!</p>
 
     <div id="no-results" style="display:none; text-align:center; padding:20px; color:#9ca3af;">Ничего не найдено.</div>
 
     <div style="display:flex; justify-content:center; margin:30px 0;">
-      <a href="index.html" style="background:#4a90e2; color:white; padding:12px 30px; border-radius:60px; border-bottom:none; font-weight:700;">🏠 Вернуться на главную</a>
+      <a href="index.html" style="background:#7c3aed; color:white; padding:12px 30px; border-radius:60px; border-bottom:none; font-weight:700;">🏠 Вернуться на главную</a>
     </div>
 
     <div class="signature">by Везунчик</div>
-    <div class="guardians">🐚 Хранители порядка: Сангономия Кокоми и Невиллет 🐉</div>
   </main>
 
+  <!-- Кнопка "Наверх" -->
   <button id="toTopBtn" title="Наверх">↑</button>
 
   <script>
-    (function(){
-      const bar = document.getElementById('progress-bar');
+    (function() {
+      // ---------- ПРОГРЕСС-БАР ----------
+      const progressBar = document.getElementById('progress-bar');
       window.addEventListener('scroll', () => {
         const winScroll = document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - window.innerHeight;
-        bar.style.width = (winScroll / height) * 100 + '%';
+        progressBar.style.width = (winScroll / height) * 100 + '%';
       });
+
+      // ---------- КНОПКА НАВЕРХ ----------
       const topBtn = document.getElementById('toTopBtn');
-      window.addEventListener('scroll', () => topBtn.classList.toggle('visible', window.scrollY > 400));
-      topBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
-      const toggle = document.getElementById('toc-toggle');
-      const list = document.getElementById('toc-list');
-      toggle.addEventListener('click', () => list.classList.toggle('collapsed'));
-      document.querySelectorAll('.toc-list a').forEach(a => {
-        a.addEventListener('click', e => {
+      window.addEventListener('scroll', () => {
+        topBtn.classList.toggle('visible', window.scrollY > 400);
+      });
+      topBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // ---------- ОГЛАВЛЕНИЕ (СВОРАЧИВАНИЕ) ----------
+      const tocToggle = document.getElementById('toc-toggle');
+      const tocList = document.getElementById('toc-list');
+      tocToggle.addEventListener('click', () => {
+        tocList.classList.toggle('collapsed');
+        tocToggle.setAttribute('aria-expanded', !tocList.classList.contains('collapsed'));
+      });
+      tocToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          document.getElementById(a.getAttribute('href').substring(1))?.scrollIntoView({behavior: 'smooth'});
+          tocToggle.click();
+        }
+      });
+
+      // Плавный скролл по якорям из оглавления
+      document.querySelectorAll('.toc-list a').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href').substring(1);
+          const targetEl = document.getElementById(targetId);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         });
       });
-      const input = document.getElementById('search-input');
-      const clear = document.getElementById('clear-search');
-      const main = document.querySelector('main');
-      const noRes = document.getElementById('no-results');
+
+      // ---------- ПОИСК С ПОДСВЕТКОЙ ----------
+      const searchInput = document.getElementById('search-input');
+      const clearBtn = document.getElementById('clear-search');
+      const mainContent = document.querySelector('main');
+      const noResultsDiv = document.getElementById('no-results');
+
       function clearHighlights() {
-        main.querySelectorAll('mark').forEach(m => m.replaceWith(document.createTextNode(m.textContent)));
-        main.normalize();
-      }
-      input.addEventListener('input', () => {
-        const val = input.value.trim();
-        clear.style.display = val ? 'flex' : 'none';
-        clearHighlights();
-        if (!val) {
-          document.querySelectorAll('section, p, h3, ul, li').forEach(el => el.style.display = '');
-          noRes.style.display = 'none';
-          return;
-        }
-        const lower = val.toLowerCase();
-        let found = false;
-        document.querySelectorAll('section, p, h3, ul, li').forEach(el => {
-          if (el.textContent.toLowerCase().includes(lower)) { el.style.display = ''; found = true; }
-          else el.style.display = 'none';
+        const marks = mainContent.querySelectorAll('mark');
+        marks.forEach(mark => {
+          const parent = mark.parentNode;
+          parent.replaceChild(document.createTextNode(mark.textContent), mark);
+          parent.normalize();
         });
-        noRes.style.display = found ? 'none' : 'block';
-        if (found) {
-          // подсветка
-          const escaped = val.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          const regex = new RegExp(`(${escaped})`, 'gi');
-          function walk(node) {
-            if (node.nodeType === 3) {
-              const m = node.data.match(regex);
-              if (m) {
-                const frag = document.createDocumentFragment();
-                let last = 0;
-                node.data.replace(regex, (match, offset) => {
-                  if (offset > last) frag.appendChild(document.createTextNode(node.data.slice(last, offset)));
-                  const mark = document.createElement('mark');
-                  mark.textContent = match;
-                  frag.appendChild(mark);
-                  last = offset + match.length;
-                });
-                if (last < node.data.length) frag.appendChild(document.createTextNode(node.data.slice(last)));
-                node.parentNode.replaceChild(frag, node);
+      }
+
+      function highlightText(text) {
+        if (!text) return;
+        const escaped = text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escaped})`, 'gi');
+        
+        function walk(node) {
+          if (node.nodeType === 3) { // текстовый узел
+            const match = node.data.match(regex);
+            if (match) {
+              const frag = document.createDocumentFragment();
+              let lastIndex = 0;
+              node.data.replace(regex, (matched, offset) => {
+                if (offset > lastIndex) {
+                  frag.appendChild(document.createTextNode(node.data.slice(lastIndex, offset)));
+                }
+                const mark = document.createElement('mark');
+                mark.textContent = matched;
+                frag.appendChild(mark);
+                lastIndex = offset + matched.length;
+              });
+              if (lastIndex < node.data.length) {
+                frag.appendChild(document.createTextNode(node.data.slice(lastIndex)));
               }
-            } else if (node.nodeType === 1 && !['SCRIPT','STYLE','MARK'].includes(node.tagName)) {
-              [...node.childNodes].forEach(walk);
+              node.parentNode.replaceChild(frag, node);
+            }
+          } else if (node.nodeType === 1 && !['SCRIPT', 'STYLE', 'MARK', 'BUTTON'].includes(node.tagName)) {
+            for (let child of [...node.childNodes]) {
+              walk(child);
             }
           }
-          walk(main);
         }
-      });
-      clear.addEventListener('click', () => {
-        input.value = ''; clear.style.display = 'none';
+        walk(mainContent);
+      }
+
+      function performSearch() {
+        const query = searchInput.value.trim();
+        clearBtn.style.display = query ? 'flex' : 'none';
         clearHighlights();
-        document.querySelectorAll('section, p, h3, ul, li').forEach(el => el.style.display = '');
-        noRes.style.display = 'none';
+        
+        // Показываем все секции, параграфы и заголовки
+        const allElements = mainContent.querySelectorAll('section, p, h3, ul, li');
+        allElements.forEach(el => el.style.display = '');
+        
+        if (!query) {
+          noResultsDiv.style.display = 'none';
+          return;
+        }
+        
+        const lowerQuery = query.toLowerCase();
+        let anyVisible = false;
+        
+        allElements.forEach(el => {
+          if (el === noResultsDiv) return;
+          const text = el.textContent.toLowerCase();
+          if (text.includes(lowerQuery)) {
+            el.style.display = '';
+            anyVisible = true;
+          } else {
+            el.style.display = 'none';
+          }
+        });
+        
+        if (anyVisible) {
+          noResultsDiv.style.display = 'none';
+          highlightText(query);
+        } else {
+          noResultsDiv.style.display = 'block';
+        }
+      }
+
+      searchInput.addEventListener('input', performSearch);
+      
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        clearHighlights();
+        const allElements = mainContent.querySelectorAll('section, p, h3, ul, li');
+        allElements.forEach(el => el.style.display = '');
+        noResultsDiv.style.display = 'none';
+        searchInput.focus();
       });
+
+      // Скрываем кнопку очистки изначально
+      clearBtn.style.display = 'none';
     })();
   </script>
 </body>
